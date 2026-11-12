@@ -1,0 +1,2110 @@
+<!DOCTYPE html>
+<html lang="id" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ZENIX — Aplikasi Premium. Harga Mahasiswa.</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Manrope, Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            obsidian: '#080B12',
+            midnight: '#101827',
+            secnavy: '#172338',
+            champagne: '#D8B66A',
+            goldlight: '#F0D99C',
+            ivory: '#F4F1E9',
+            silver: '#B9C3D2'
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Manrope', 'Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    body {
+      background-color: #080B12;
+      color: #F4F1E9;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+    /* Halftone Dot Matrix Pattern inspired by ZENIX Logo Reference */
+    .halftone-bg {
+      background-image: radial-gradient(rgba(244, 241, 233, 0.24) 1px, transparent 1px);
+      background-size: 8px 8px;
+    }
+    .glass-card {
+      background: linear-gradient(180deg, rgba(16, 24, 39, 0.72) 0%, rgba(8, 11, 18, 0.88) 100%);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .glass-card:hover {
+      border-color: rgba(216, 182, 106, 0.45);
+    }
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+      50% { opacity: 0.85; transform: translate(-50%, -50%) scale(1.06); }
+    }
+    .hero-glow {
+      animation: pulseGlow 6s ease-in-out infinite;
+    }
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: #080B12; }
+    ::-webkit-scrollbar-thumb { background: #172338; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #D8B66A; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-champagne selection:text-obsidian">
+
+  <!-- ========================================== -->
+  <!-- TOP SYSTEM BAR & NAVIGATION HEADER         -->
+  <!-- ========================================== -->
+  <header class="sticky top-0 z-40 backdrop-blur-xl bg-obsidian/85 border-b border-white/10">
+    <!-- Simulasi Bar Multi-Halaman -->
+    <div class="bg-midnight border-b border-white/5 px-4 py-1.5 text-[11px] text-silver flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-2">
+        <span class="inline-block w-2 h-2 rounded-full bg-champagne animate-pulse"></span>
+        <span id="active-route-badge" class="font-mono uppercase tracking-wider text-ivory">index.html</span>
+        <span class="hidden sm:inline text-white/30">|</span>
+        <span class="hidden sm:inline">Zero-Inventory Manual Procurement • Siap Upload ke Vercel</span>
+      </div>
+      <div class="flex items-center gap-2 sm:gap-3 font-mono text-[11px]">
+        <button onclick="navigateTo('index.html')" data-route="index.html" class="route-tab hover:text-white transition text-champagne">index.html</button>
+        <span class="text-white/20">/</span>
+        <button onclick="navigateTo('catalog.html')" data-route="catalog.html" class="route-tab hover:text-white transition">catalog.html</button>
+        <span class="text-white/20">/</span>
+        <button onclick="navigateTo('product.html')" data-route="product.html" class="route-tab hover:text-white transition">product.html</button>
+        <span class="text-white/20">/</span>
+        <button onclick="navigateTo('admin.html')" data-route="admin.html" class="route-tab hover:text-white transition">admin.html</button>
+      </div>
+    </div>
+
+    <!-- Main Navbar -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <!-- ZENIX Brand Logo -->
+      <button onclick="navigateTo('index.html')" class="group inline-flex items-center focus:outline-none select-none" aria-label="Beranda ZENIX">
+        <div class="relative flex items-center">
+          <span class="text-2xl sm:text-3xl font-extrabold tracking-wider lowercase text-ivory font-display group-hover:text-white transition" style="letter-spacing: 0.06em;">zenix</span>
+          <svg class="w-6 h-6 -mt-3 -ml-0.5 text-ivory group-hover:text-champagne transition-colors duration-300" viewBox="0 0 32 32" fill="currentColor">
+            <path d="M14 2 C14 10 16 12 24 12 C16 12 14 14 14 22 C14 14 12 12 4 12 C12 12 14 10 14 2 Z" />
+            <path d="M25 1 C25 4.5 26 5.5 29.5 5.5 C26 5.5 25 6.5 25 10 C25 6.5 24 5.5 20.5 5.5 C24 5.5 25 4.5 25 1 Z" />
+          </svg>
+        </div>
+      </button>
+
+      <!-- Desktop Menu -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
+        <button onclick="navigateTo('index.html')" class="nav-link text-ivory hover:text-champagne transition" data-nav="index.html">Beranda</button>
+        <button onclick="navigateTo('catalog.html')" class="nav-link text-silver hover:text-ivory transition" data-nav="catalog.html">Katalog Produk</button>
+        <button onclick="scrollToHowItWorks()" class="text-silver hover:text-ivory transition">Cara Pemesanan</button>
+        <a id="header-wa-link" href="https://wa.me/6285128000617" target="_blank" rel="noopener noreferrer" class="text-silver hover:text-ivory transition inline-flex items-center gap-1">
+          Hubungi Admin
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+        </a>
+      </nav>
+
+      <!-- Right Actions -->
+      <div class="hidden md:flex items-center gap-3">
+        <button onclick="navigateTo('admin.html')" class="px-3.5 py-2 rounded-full text-xs font-mono uppercase tracking-wider border border-white/15 text-silver hover:text-ivory hover:border-champagne/50 transition flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-champagne"></span>
+          Terminal Admin
+        </button>
+        <button onclick="navigateTo('catalog.html')" class="px-5 py-2.5 rounded-full text-xs font-semibold tracking-wide bg-ivory text-obsidian hover:bg-champagne transition shadow-[0_0_25px_rgba(244,241,233,0.2)]">
+          Jelajahi Katalog
+        </button>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button onclick="toggleMobileMenu()" class="md:hidden p-2.5 rounded-xl border border-white/10 text-ivory">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu" class="hidden md:hidden bg-obsidian border-b border-white/10 px-4 pt-3 pb-6 space-y-2.5">
+      <button onclick="navigateTo('index.html')" class="block w-full text-left py-2 text-ivory font-medium border-b border-white/5">Beranda (index.html)</button>
+      <button onclick="navigateTo('catalog.html')" class="block w-full text-left py-2 text-ivory font-medium border-b border-white/5">Katalog Produk (catalog.html)</button>
+      <button onclick="navigateTo('product.html')" class="block w-full text-left py-2 text-silver font-medium border-b border-white/5">Detail & Pemesanan (product.html)</button>
+      <button onclick="navigateTo('admin.html')" class="block w-full text-left py-2 text-champagne font-mono text-sm">Terminal Admin (admin.html)</button>
+    </div>
+  </header>
+
+  <!-- ========================================== -->
+  <!-- MAIN VIEW CONTAINER                        -->
+  <!-- ========================================== -->
+  <div class="flex-1">
+
+    <!-- ========================================== -->
+    <!-- PAGE 1: HOMEPAGE (index.html)              -->
+    <!-- ========================================== -->
+    <main id="view-home" class="page-view">
+      <!-- HERO SECTION -->
+      <section class="relative min-h-[86vh] flex flex-col items-center justify-center text-center px-4 sm:px-6 lg:px-8 pt-16 pb-28 overflow-hidden">
+        <!-- Background Elements -->
+        <div class="absolute inset-0 pointer-events-none overflow-hidden select-none">
+          <div class="absolute inset-0 halftone-bg opacity-35"></div>
+          <div class="hero-glow absolute top-1/3 left-1/2 w-[520px] h-[320px] bg-white/10 rounded-full blur-[130px]"></div>
+          <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[260px] h-[180px] bg-champagne/15 rounded-full blur-[100px]"></div>
+          <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1px] h-[400px] bg-gradient-to-b from-transparent via-white/40 to-transparent"></div>
+
+          <!-- Perspective Ribbed Canyon Wave SVG inspired by CORA / Onion AI reference -->
+          <svg class="absolute bottom-0 left-0 w-full h-[62%] opacity-40" viewBox="0 0 1440 600" fill="none" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="waveLineGrad" x1="0" y1="0" x2="1440" y2="0" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#F4F1E9" stop-opacity="0.38" />
+                <stop offset="30%" stop-color="#B9C3D2" stop-opacity="0.08" />
+                <stop offset="50%" stop-color="#D8B66A" stop-opacity="0.32" />
+                <stop offset="70%" stop-color="#B9C3D2" stop-opacity="0.08" />
+                <stop offset="100%" stop-color="#F4F1E9" stop-opacity="0.38" />
+              </linearGradient>
+            </defs>
+            <g id="hero-wave-paths"></g>
+          </svg>
+          <div class="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-obsidian to-transparent"></div>
+        </div>
+
+        <!-- Hero Content -->
+        <div class="relative z-10 max-w-4xl mx-auto flex flex-col items-center">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/15 backdrop-blur-md mb-8">
+            <span class="w-2 h-2 rounded-full bg-champagne"></span>
+            <span id="hero-badge-copy" class="text-[11px] font-mono uppercase tracking-[0.2em] text-silver">
+              Premium Digital Store • Kebutuhan Digitalmu, Kini Lebih Terjangkau.
+            </span>
+          </div>
+
+          <!-- Center Glowing ZENIX Box -->
+          <div class="mb-7 px-6 py-4 rounded-2xl bg-midnight/85 border border-white/15 shadow-[0_0_60px_rgba(244,241,233,0.14)] backdrop-blur-xl">
+            <div class="relative flex items-center">
+              <span class="text-3xl font-extrabold tracking-wider lowercase text-ivory font-display">zenix</span>
+              <svg class="w-6 h-6 -mt-3 -ml-0.5 text-champagne" viewBox="0 0 32 32" fill="currentColor">
+                <path d="M14 2 C14 10 16 12 24 12 C16 12 14 14 14 22 C14 14 12 12 4 12 C12 12 14 10 14 2 Z" />
+                <path d="M25 1 C25 4.5 26 5.5 29.5 5.5 C26 5.5 25 6.5 25 10 C25 6.5 24 5.5 20.5 5.5 C24 5.5 25 4.5 25 1 Z" />
+              </svg>
+            </div>
+          </div>
+
+          <h1 id="hero-headline" class="text-4xl sm:text-6xl lg:text-7xl font-extrabold font-display tracking-tight text-ivory leading-[1.08] mb-6">
+            Aplikasi Premium.
+            <span class="block bg-gradient-to-r from-ivory via-silver to-champagne bg-clip-text text-transparent">
+              Harga Mahasiswa.
+            </span>
+          </h1>
+
+          <p class="max-w-2xl text-base sm:text-lg text-silver leading-relaxed mb-10">
+            Toko langganan aplikasi digital terkurasi untuk mahasiswa, kreator konten, desainer, dan editor video. Sistem verifikasi stok langsung memastikan kamu mendapatkan harga paling hemat & bergaransi.
+          </p>
+
+          <div class="flex flex-col sm:flex-row items-center gap-4">
+            <button onclick="navigateTo('catalog.html')" class="px-8 py-4 rounded-full bg-ivory text-obsidian font-semibold text-sm tracking-wide hover:bg-champagne transition-all duration-300 shadow-[0_0_40px_rgba(244,241,233,0.28)] flex items-center gap-2">
+              <span>Jelajahi Katalog</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+            </button>
+            <button onclick="scrollToHowItWorks()" class="px-8 py-4 rounded-full bg-white/[0.04] hover:bg-white/[0.08] text-ivory border border-white/15 font-medium text-sm tracking-wide transition-all">
+              Cara Pemesanan
+            </button>
+          </div>
+
+          <!-- Platform Ticker -->
+          <div class="mt-20 pt-8 border-t border-white/10 w-full max-w-4xl flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-xs font-mono uppercase tracking-widest text-silver/70">
+            <span>Netflix</span><span class="text-champagne">•</span>
+            <span>Spotify</span><span class="text-champagne">•</span>
+            <span>YouTube</span><span class="text-champagne">•</span>
+            <span>Disney+ Hotstar</span><span class="text-champagne">•</span>
+            <span>Prime Video</span><span class="text-champagne">•</span>
+            <span>iQIYI</span><span class="text-champagne">•</span>
+            <span>CapCut Pro</span><span class="text-champagne">•</span>
+            <span>Alight Motion</span><span class="text-champagne">•</span>
+            <span>Canva Pro</span><span class="text-champagne">•</span>
+            <span>ChatGPT Plus</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- APA ITU ZENIX STORE? -->
+      <section class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="text-center max-w-2xl mx-auto mb-14">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-mono uppercase tracking-widest text-champagne mb-3">
+            • MENGAPA MEMILIH ZENIX
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-bold font-display tracking-tight text-ivory">
+            Apa itu ZENIX Store?
+          </h2>
+          <p class="mt-3 text-sm text-silver">
+            Ekosistem langganan digital modern yang menghubungkan jaringan supplier tangan pertama langsung ke mahasiswa dan kreator.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="p-6 rounded-2xl glass-card transition flex items-start gap-4">
+            <div class="p-3 rounded-xl bg-white/5 border border-white/10 text-champagne shrink-0 font-mono text-sm">01</div>
+            <div>
+              <h3 class="text-base font-semibold text-ivory mb-1.5">Harga Real-Time Terbaik</h3>
+              <p class="text-xs text-silver leading-relaxed">Tanpa harga statis yang dimarkup tinggi. Admin mengecek langsung ketersediaan dan harga termurah dari 5 jaringan supplier saat kamu memesan.</p>
+            </div>
+          </div>
+          <div class="p-6 rounded-2xl glass-card transition flex items-start gap-4">
+            <div class="p-3 rounded-xl bg-white/5 border border-white/10 text-champagne shrink-0 font-mono text-sm">02</div>
+            <div>
+              <h3 class="text-base font-semibold text-ivory mb-1.5">Bergaransi & Transparan</h3>
+              <p class="text-xs text-silver leading-relaxed">Setiap paket dilengkapi informasi durasi, aturan pemakaian, serta jaminan garansi penuh sesuai masa aktif yang kamu pilih.</p>
+            </div>
+          </div>
+          <div class="p-6 rounded-2xl glass-card transition flex items-start gap-4">
+            <div class="p-3 rounded-xl bg-white/5 border border-white/10 text-champagne shrink-0 font-mono text-sm">03</div>
+            <div>
+              <h3 class="text-base font-semibold text-ivory mb-1.5">Metode Pembayaran Lengkap</h3>
+              <p class="text-xs text-silver leading-relaxed">Mendukung pembayaran mudah tanpa kartu kredit melalui QRIS, GoPay, DANA, SeaBank, BNI, dan BRI.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- KATEGORI PILIHAN -->
+      <section class="py-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
+          <div>
+            <span class="text-[11px] font-mono uppercase tracking-widest text-champagne">• EKOSISTEM DIGITAL</span>
+            <h2 class="text-2xl sm:text-3xl font-bold font-display text-ivory mt-1">Kategori Pilihan</h2>
+          </div>
+          <button onclick="navigateTo('catalog.html')" class="text-xs font-mono uppercase tracking-wider text-silver hover:text-champagne inline-flex items-center gap-1">
+            Lihat Semua Kategori →
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <button onclick="filterCategoryFromHome('Streaming')" class="group text-left p-6 rounded-2xl glass-card transition-all duration-300 hover:-translate-y-1">
+            <span class="text-[10px] font-mono uppercase tracking-widest text-silver/60 group-hover:text-champagne">HIBURAN & MUSIK</span>
+            <h3 class="text-xl font-bold text-ivory mt-2 mb-1">Streaming</h3>
+            <p class="text-xs text-silver mb-6">Netflix, Spotify, YouTube, Disney+, Prime Video, iQIYI</p>
+            <span class="inline-flex items-center gap-1 text-xs font-medium text-ivory group-hover:text-champagne">Buka Kategori →</span>
+          </button>
+          <button onclick="filterCategoryFromHome('Edit Video')" class="group text-left p-6 rounded-2xl glass-card transition-all duration-300 hover:-translate-y-1">
+            <span class="text-[10px] font-mono uppercase tracking-widest text-silver/60 group-hover:text-champagne">KREATOR KONTEN 4K</span>
+            <h3 class="text-xl font-bold text-ivory mt-2 mb-1">Edit Video</h3>
+            <p class="text-xs text-silver mb-6">CapCut Pro, Alight Motion Pro</p>
+            <span class="inline-flex items-center gap-1 text-xs font-medium text-ivory group-hover:text-champagne">Buka Kategori →</span>
+          </button>
+          <button onclick="filterCategoryFromHome('Desain')" class="group text-left p-6 rounded-2xl glass-card transition-all duration-300 hover:-translate-y-1">
+            <span class="text-[10px] font-mono uppercase tracking-widest text-silver/60 group-hover:text-champagne">PRESENTASI & GRAFIS</span>
+            <h3 class="text-xl font-bold text-ivory mt-2 mb-1">Desain</h3>
+            <p class="text-xs text-silver mb-6">Canva Pro (Tim / Edu / Private)</p>
+            <span class="inline-flex items-center gap-1 text-xs font-medium text-ivory group-hover:text-champagne">Buka Kategori →</span>
+          </button>
+          <button onclick="filterCategoryFromHome('Produktivitas')" class="group text-left p-6 rounded-2xl glass-card transition-all duration-300 hover:-translate-y-1">
+            <span class="text-[10px] font-mono uppercase tracking-widest text-silver/60 group-hover:text-champagne">RISET & AI ASSISTANT</span>
+            <h3 class="text-xl font-bold text-ivory mt-2 mb-1">Produktivitas</h3>
+            <p class="text-xs text-silver mb-6">ChatGPT Plus (OpenAI GPT-4o)</p>
+            <span class="inline-flex items-center gap-1 text-xs font-medium text-ivory group-hover:text-champagne">Buka Kategori →</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- PRODUK UNGGULAN -->
+      <section class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
+          <div>
+            <span class="text-[11px] font-mono uppercase tracking-widest text-champagne">• KATALOG POPULER</span>
+            <h2 class="text-2xl sm:text-3xl font-bold font-display text-ivory mt-1">Produk Digital Unggulan</h2>
+          </div>
+          <button onclick="navigateTo('catalog.html')" class="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs font-medium hover:bg-white/10 transition">
+            Lihat Semua Produk (<span id="home-total-products">10</span>)
+          </button>
+        </div>
+
+        <div id="home-featured-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+      </section>
+
+      <!-- CARA PEMESANAN -->
+      <section id="how-it-works" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="text-center max-w-2xl mx-auto mb-14">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-mono uppercase tracking-widest text-champagne mb-3">
+            • PILIH • TANYA ADMIN • BAYAR • AKTIF
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-bold font-display tracking-tight text-ivory">Cara Pemesanan</h2>
+          <p class="mt-3 text-sm text-silver">
+            Alur pemesanan transparan untuk memastikan stok selalu tersedia dan harga tetap paling ramah di kantong mahasiswa.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="relative p-6 rounded-2xl glass-card flex flex-col justify-between min-h-[260px] overflow-hidden">
+            <div class="absolute -right-3 -bottom-5 text-7xl font-black text-white/[0.03] font-mono select-none">01</div>
+            <div>
+              <span class="inline-block px-2.5 py-1 rounded bg-white/5 border border-white/10 text-xs font-mono text-champagne mb-4">LANGKAH 01</span>
+              <h3 class="text-lg font-bold text-ivory mb-2">Pilih Aplikasi & Paket</h3>
+              <p class="text-xs text-silver leading-relaxed">Buka katalog ZENIX, pilih aplikasi yang kamu butuhkan beserta jenis paket, durasi langganan, dan jumlahnya.</p>
+            </div>
+            <div class="pt-5 border-t border-white/5 text-[11px] font-mono text-silver/60">KATALOG TERKURASI</div>
+          </div>
+
+          <div class="relative p-6 rounded-2xl glass-card flex flex-col justify-between min-h-[260px] overflow-hidden">
+            <div class="absolute -right-3 -bottom-5 text-7xl font-black text-white/[0.03] font-mono select-none">02</div>
+            <div>
+              <span class="inline-block px-2.5 py-1 rounded bg-white/5 border border-white/10 text-xs font-mono text-champagne mb-4">LANGKAH 02</span>
+              <h3 class="text-lg font-bold text-ivory mb-2">Pesan via WhatsApp</h3>
+              <p class="text-xs text-silver leading-relaxed">Klik tombol Pesan via WhatsApp. Pesan otomatis berisi detail pesananmu akan langsung terkirim ke Admin ZENIX.</p>
+            </div>
+            <div class="pt-5 border-t border-white/5 text-[11px] font-mono text-silver/60">WA CLICK-TO-CHAT</div>
+          </div>
+
+          <div class="relative p-6 rounded-2xl glass-card flex flex-col justify-between min-h-[260px] overflow-hidden">
+            <div class="absolute -right-3 -bottom-5 text-7xl font-black text-white/[0.03] font-mono select-none">03</div>
+            <div>
+              <span class="inline-block px-2.5 py-1 rounded bg-white/5 border border-white/10 text-xs font-mono text-champagne mb-4">LANGKAH 03</span>
+              <h3 class="text-lg font-bold text-ivory mb-2">Konfirmasi Stok & Harga</h3>
+              <p class="text-xs text-silver leading-relaxed">Admin mengecek stok supplier secara real-time dan mengonfirmasi harga terbaik sebelum kamu melakukan pembayaran.</p>
+            </div>
+            <div class="pt-5 border-t border-white/5 text-[11px] font-mono text-champagne">HARGA VIA ADMIN</div>
+          </div>
+
+          <div class="relative p-6 rounded-2xl glass-card flex flex-col justify-between min-h-[260px] overflow-hidden">
+            <div class="absolute -right-3 -bottom-5 text-7xl font-black text-white/[0.03] font-mono select-none">04</div>
+            <div>
+              <span class="inline-block px-2.5 py-1 rounded bg-white/5 border border-white/10 text-xs font-mono text-champagne mb-4">LANGKAH 04</span>
+              <h3 class="text-lg font-bold text-ivory mb-2">Pembayaran & Pengiriman</h3>
+              <p class="text-xs text-silver leading-relaxed">Bayar melalui QRIS, E-Wallet, atau Transfer Bank. Setelah diverifikasi, akun/invite langsung dikirim beserta garansinya.</p>
+            </div>
+            <div class="pt-5 border-t border-white/5 text-[11px] font-mono text-emerald-400">AKTIVASI RESMI</div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ========================================== -->
+    <!-- PAGE 2: PRODUCT CATALOG (catalog.html)     -->
+    <!-- ========================================== -->
+    <main id="view-catalog" class="page-view hidden pb-24">
+      <section class="relative pt-14 pb-12 px-4 sm:px-6 lg:px-8 border-b border-white/10 overflow-hidden">
+        <div class="absolute inset-0 halftone-bg opacity-25 pointer-events-none"></div>
+        <div class="max-w-7xl mx-auto relative z-10">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-mono uppercase tracking-widest text-champagne mb-4">
+            • KATALOG PRODUK ZENIX
+          </span>
+          <h1 class="text-3xl sm:text-5xl font-extrabold font-display tracking-tight text-ivory mb-4">
+            Temukan Esensial Digitalmu.
+          </h1>
+          <p class="max-w-2xl text-sm sm:text-base text-silver leading-relaxed">
+            Alat terbaik untuk kreativitas, produktivitas, dan hiburanmu. Langganan aplikasi digital terkurasi dengan harga ramah mahasiswa.
+          </p>
+
+          <!-- Search & Category Filter Bar -->
+          <div class="mt-8 flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4">
+            <div class="relative flex-1 max-w-xl">
+              <input
+                id="catalog-search"
+                type="text"
+                oninput="handleCatalogSearch(this.value)"
+                placeholder="Cari Netflix, Spotify, CapCut Pro, Alight Motion, ChatGPT..."
+                class="w-full pl-4 pr-20 py-3 rounded-xl bg-midnight/90 border border-white/15 text-sm text-ivory placeholder-silver/50 focus:outline-none focus:border-champagne"
+              />
+              <button
+                onclick="resetCatalogFilters()"
+                class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-silver hover:text-white font-mono"
+              >
+                Reset
+              </button>
+            </div>
+
+            <div id="catalog-category-buttons" class="flex flex-wrap items-center gap-2"></div>
+          </div>
+        </div>
+      </section>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
+          <div id="catalog-count-label" class="text-xs font-mono text-silver"></div>
+          <div class="text-xs text-champagne font-mono flex items-center gap-1.5">
+            <span>✦</span> Semua harga dikonfirmasi real-time (“Harga via admin”)
+          </div>
+        </div>
+
+        <div id="catalog-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+      </div>
+    </main>
+
+    <!-- ========================================== -->
+    <!-- PAGE 3: PRODUCT DETAIL (product.html)      -->
+    <!-- ========================================== -->
+    <main id="view-product" class="page-view hidden py-12 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
+          <button onclick="navigateTo('catalog.html')" class="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-silver hover:text-white">
+            ← Kembali ke Katalog
+          </button>
+          <div id="product-quick-switcher" class="flex flex-wrap items-center gap-1.5"></div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          <!-- Left: Artwork & Description -->
+          <div class="lg:col-span-7 space-y-6">
+            <div class="rounded-2xl overflow-hidden glass-card">
+              <div id="detail-artwork-container" class="w-full h-64 sm:h-72"></div>
+              <div class="p-6 sm:p-8">
+                <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+                  <span id="detail-category" class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-silver"></span>
+                  <span class="px-3.5 py-1 rounded-full bg-champagne/15 border border-champagne/40 text-xs font-mono text-goldlight font-semibold">
+                    Harga via admin
+                  </span>
+                </div>
+                <h1 id="detail-name" class="text-3xl sm:text-4xl font-extrabold font-display text-ivory mb-3"></h1>
+                <p id="detail-desc" class="text-sm text-silver leading-relaxed"></p>
+              </div>
+            </div>
+
+            <!-- Terms & Conditions -->
+            <div class="p-6 sm:p-8 rounded-2xl glass-card space-y-4">
+              <h3 class="text-sm font-mono uppercase tracking-wider text-champagne">
+                ✦ Syarat & Ketentuan Penting
+              </h3>
+              <ul id="detail-terms" class="space-y-2.5 text-xs text-silver"></ul>
+            </div>
+          </div>
+
+          <!-- Right: Order Form -->
+          <div class="lg:col-span-5">
+            <div class="sticky top-28 p-6 sm:p-8 rounded-2xl bg-midnight/85 border border-white/15 shadow-2xl space-y-5">
+              <div class="border-b border-white/10 pb-4">
+                <span class="text-[10px] font-mono uppercase tracking-widest text-champagne">• KONFIGURASI PESANAN</span>
+                <h2 class="text-xl font-bold font-display text-ivory mt-1">Atur Paket Langgananmu</h2>
+                <p class="text-xs text-silver mt-1">Harga akhir dikonfirmasi manual oleh Admin setelah cek stok & harga supplier terkini.</p>
+              </div>
+
+              <!-- Customer Name -->
+              <div>
+                <label class="block text-xs font-mono uppercase tracking-wider text-silver mb-2">Nama Kamu (Opsional)</label>
+                <input
+                  id="order-customer-name"
+                  type="text"
+                  oninput="updateOrderPreview()"
+                  placeholder="Contoh: Raka Pratama"
+                  class="w-full px-4 py-2.5 rounded-xl bg-obsidian border border-white/15 text-sm text-ivory focus:outline-none focus:border-champagne"
+                />
+              </div>
+
+              <!-- Package Options -->
+              <div>
+                <label class="block text-xs font-mono uppercase tracking-wider text-silver mb-2">Pilih Paket</label>
+                <div id="order-packages-list" class="grid grid-cols-1 gap-2"></div>
+              </div>
+
+              <!-- Subscription Durations -->
+              <div>
+                <label class="block text-xs font-mono uppercase tracking-wider text-silver mb-2">Durasi Langganan</label>
+                <div id="order-durations-list" class="grid grid-cols-2 gap-2"></div>
+              </div>
+
+              <!-- Quantity -->
+              <div>
+                <label class="block text-xs font-mono uppercase tracking-wider text-silver mb-2">Jumlah (Qty)</label>
+                <div class="flex items-center gap-3">
+                  <button type="button" onclick="adjustOrderQty(-1)" class="w-10 h-10 rounded-xl bg-obsidian border border-white/15 text-ivory hover:border-champagne font-bold">-</button>
+                  <input id="order-qty-input" type="number" min="1" max="20" value="1" oninput="setOrderQty(this.value)" class="w-20 text-center py-2 rounded-xl bg-obsidian border border-white/15 text-sm font-mono text-ivory" />
+                  <button type="button" onclick="adjustOrderQty(1)" class="w-10 h-10 rounded-xl bg-obsidian border border-white/15 text-ivory hover:border-champagne font-bold">+</button>
+                </div>
+              </div>
+
+              <!-- Live WhatsApp Message Preview -->
+              <div class="p-3.5 rounded-xl bg-obsidian border border-white/10 space-y-1.5">
+                <div class="flex items-center justify-between text-xs">
+                  <span class="text-silver">Estimasi Harga:</span>
+                  <span class="font-mono font-semibold text-champagne">Harga via admin</span>
+                </div>
+                <div class="text-[10px] font-mono text-silver/70 pt-1 border-t border-white/5">
+                  Preview Pesan WhatsApp:
+                </div>
+                <pre id="whatsapp-message-preview" class="text-[11px] text-silver/90 whitespace-pre-wrap font-mono bg-midnight/60 p-2.5 rounded-lg border border-white/5 max-h-32 overflow-y-auto"></pre>
+              </div>
+
+              <!-- Order Buttons -->
+              <div class="space-y-2.5 pt-1">
+                <a
+                  id="order-wa-button"
+                  href="https://wa.me/6285128000617"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="w-full py-4 rounded-xl bg-ivory hover:bg-champagne text-obsidian font-bold text-xs uppercase tracking-wider transition flex items-center justify-center gap-2 shadow-[0_0_30px_rgba(244,241,233,0.2)]"
+                >
+                  <span>PESAN VIA WHATSAPP</span>
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+                </a>
+                <button
+                  type="button"
+                  onclick="simulateOrderToAdmin()"
+                  class="w-full py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-silver hover:text-white text-[11px] font-mono border border-white/10 transition"
+                >
+                  + Catat Draft Pesanan Ini ke Tabel Admin Lokal
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- ========================================== -->
+    <!-- PAGE 4: ADMIN DASHBOARD (admin.html)       -->
+    <!-- ========================================== -->
+    <main id="view-admin" class="page-view hidden min-h-screen">
+      <div class="flex flex-col lg:flex-row min-h-[85vh]">
+        <!-- Admin Sidebar -->
+        <aside class="w-full lg:w-64 bg-midnight/90 border-b lg:border-b-0 lg:border-r border-white/10 p-5 flex flex-col justify-between shrink-0">
+          <div class="space-y-6">
+            <div>
+              <span class="text-[10px] font-mono uppercase tracking-widest text-champagne block">TERMINAL // ADMIN</span>
+              <h2 class="text-lg font-bold font-display text-ivory">ZENIX OS</h2>
+            </div>
+
+            <nav id="admin-sidebar-nav" class="flex lg:flex-col gap-1.5 overflow-x-auto pb-2 lg:pb-0">
+              <button onclick="switchAdminTab('Overview')" data-admintab="Overview" class="admin-nav-btn px-3.5 py-2.5 rounded-xl text-xs font-semibold bg-ivory text-obsidian text-left shrink-0">1. Ringkasan</button>
+              <button onclick="switchAdminTab('Products')" data-admintab="Products" class="admin-nav-btn px-3.5 py-2.5 rounded-xl text-xs font-medium text-silver hover:bg-white/5 text-left shrink-0">2. Produk</button>
+              <button onclick="switchAdminTab('Suppliers')" data-admintab="Suppliers" class="admin-nav-btn px-3.5 py-2.5 rounded-xl text-xs font-medium text-silver hover:bg-white/5 text-left shrink-0">3. Supplier</button>
+              <button onclick="switchAdminTab('Orders')" data-admintab="Orders" class="admin-nav-btn px-3.5 py-2.5 rounded-xl text-xs font-medium text-silver hover:bg-white/5 text-left shrink-0">4. Pesanan & Profit</button>
+              <button onclick="switchAdminTab('Payments')" data-admintab="Payments" class="admin-nav-btn px-3.5 py-2.5 rounded-xl text-xs font-medium text-silver hover:bg-white/5 text-left shrink-0">5. Pembayaran</button>
+              <button onclick="switchAdminTab('Settings')" data-admintab="Settings" class="admin-nav-btn px-3.5 py-2.5 rounded-xl text-xs font-medium text-silver hover:bg-white/5 text-left shrink-0">6. Pengaturan</button>
+            </nav>
+          </div>
+
+          <div class="hidden lg:block pt-6 border-t border-white/10 space-y-3">
+            <div class="p-3 rounded-xl bg-obsidian border border-white/10 text-[11px] text-silver space-y-1">
+              <div class="font-mono text-champagne uppercase">Mode Prototype Lokal</div>
+              <p>Data tersimpan di browser (`localStorage`). Siap dihubungkan ke Supabase untuk produksi.</p>
+            </div>
+            <button onclick="navigateTo('index.html')" class="w-full py-2 rounded-lg border border-white/15 text-xs text-silver hover:text-white">
+              ← Kembali ke Beranda
+            </button>
+          </div>
+        </aside>
+
+        <!-- Admin Content Area -->
+        <div class="flex-1 p-4 sm:p-8 max-w-7xl w-full mx-auto space-y-8">
+          <div class="p-4 rounded-xl bg-midnight border border-champagne/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+            <div class="text-xs text-silver">
+              <strong class="text-ivory">Sistem Pengadaan Manual (Zero-Inventory):</strong> Jangan pernah mengarang HPP atau harga jual. Masukkan HPP dan harga jual aktual hanya setelah mengecek stok ke supplier.
+            </div>
+            <button onclick="openOrderModal()" class="px-3.5 py-2 rounded-lg bg-champagne text-obsidian font-semibold text-xs shrink-0 hover:bg-goldlight transition">
+              + Catat Pesanan WhatsApp Baru
+            </button>
+          </div>
+
+          <!-- ADMIN TAB: OVERVIEW -->
+          <section id="admin-tab-Overview" class="admin-section space-y-6">
+            <div>
+              <h1 class="text-2xl font-bold font-display text-ivory">Ringkasan Eksekutif</h1>
+              <p class="text-xs text-silver mt-1">Rumus Otomatis: Profit = Harga Jual − HPP Supplier − Biaya Transaksi.</p>
+            </div>
+            <div id="admin-overview-cards" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4"></div>
+            <div class="rounded-2xl glass-card overflow-hidden">
+              <div class="p-5 border-b border-white/10 flex items-center justify-between">
+                <h3 class="text-sm font-semibold text-ivory">Transaksi Terbaru</h3>
+                <button onclick="switchAdminTab('Orders')" class="text-xs font-mono text-champagne hover:underline">Kelola Semua Pesanan →</button>
+              </div>
+              <div id="admin-recent-orders-table" class="overflow-x-auto"></div>
+            </div>
+          </section>
+
+          <!-- ADMIN TAB: PRODUCTS -->
+          <section id="admin-tab-Products" class="admin-section hidden space-y-6">
+            <div class="flex flex-wrap items-center justify-between gap-4">
+              <div>
+                <h1 class="text-2xl font-bold font-display text-ivory">Manajemen Produk</h1>
+                <p class="text-xs text-silver mt-1">Tambah, edit, nonaktifkan produk, atau ubah pilihan paket & durasi.</p>
+              </div>
+              <button onclick="openProductModal()" class="px-4 py-2.5 rounded-xl bg-ivory text-obsidian font-semibold text-xs hover:bg-champagne transition">
+                + Tambah Produk
+              </button>
+            </div>
+            <div id="admin-products-list" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+          </section>
+
+          <!-- ADMIN TAB: SUPPLIERS -->
+          <section id="admin-tab-Suppliers" class="admin-section hidden space-y-6">
+            <div class="flex flex-wrap items-center justify-between gap-4">
+              <div>
+                <h1 class="text-2xl font-bold font-display text-ivory">Database Supplier</h1>
+                <p class="text-xs text-silver mt-1">Catat harga supplier terbaru, status stok, garansi, dan kebijakan refund.</p>
+              </div>
+              <button onclick="openSupplierModal()" class="px-4 py-2.5 rounded-xl bg-ivory text-obsidian font-semibold text-xs hover:bg-champagne transition">
+                + Tambah Supplier
+              </button>
+            </div>
+            <div id="admin-suppliers-list" class="grid grid-cols-1 gap-4"></div>
+          </section>
+
+          <!-- ADMIN TAB: ORDERS -->
+          <section id="admin-tab-Orders" class="admin-section hidden space-y-6">
+            <div class="flex flex-wrap items-center justify-between gap-4">
+              <div>
+                <h1 class="text-2xl font-bold font-display text-ivory">Pesanan & Kalkulator Profit</h1>
+                <p class="text-xs text-silver mt-1">Kelola status pesanan pelanggan dan hitung estimasi profit bersih secara otomatis.</p>
+              </div>
+              <button onclick="openOrderModal()" class="px-4 py-2.5 rounded-xl bg-ivory text-obsidian font-semibold text-xs hover:bg-champagne transition">
+                + Tambah Pesanan
+              </button>
+            </div>
+            <div id="admin-orders-table" class="rounded-2xl glass-card overflow-hidden overflow-x-auto"></div>
+          </section>
+
+          <!-- ADMIN TAB: PAYMENTS -->
+          <section id="admin-tab-Payments" class="admin-section hidden space-y-6">
+            <div>
+              <h1 class="text-2xl font-bold font-display text-ivory">Metode Pembayaran Manual</h1>
+              <p class="text-xs text-silver mt-1">Daftar rekening dan E-Wallet yang diterima secara manual melalui verifikasi Admin WhatsApp.</p>
+            </div>
+            <div id="admin-payments-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+          </section>
+
+          <!-- ADMIN TAB: SETTINGS -->
+          <section id="admin-tab-Settings" class="admin-section hidden space-y-6 max-w-2xl">
+            <div>
+              <h1 class="text-2xl font-bold font-display text-ivory">Pengaturan Toko</h1>
+              <p class="text-xs text-silver mt-1">Ubah informasi toko, nomor WhatsApp Admin, atau reset database lokal.</p>
+            </div>
+            <div class="p-6 rounded-2xl glass-card space-y-4 text-xs">
+              <div>
+                <label class="block text-silver mb-1">Nama Toko</label>
+                <input id="set-store-name" type="text" class="w-full px-3.5 py-2.5 rounded-xl bg-obsidian border border-white/15 text-ivory" />
+              </div>
+              <div>
+                <label class="block text-silver mb-1">Tagline Utama</label>
+                <input id="set-store-tagline" type="text" class="w-full px-3.5 py-2.5 rounded-xl bg-obsidian border border-white/15 text-ivory" />
+              </div>
+              <div>
+                <label class="block text-champagne font-mono mb-1">Nomor WhatsApp Admin (Format 628...)</label>
+                <input id="set-store-wa" type="text" class="w-full px-3.5 py-2.5 rounded-xl bg-obsidian border border-white/15 text-ivory font-mono" />
+              </div>
+              <div>
+                <label class="block text-silver mb-1">Teks Pendukung</label>
+                <input id="set-store-support" type="text" class="w-full px-3.5 py-2.5 rounded-xl bg-obsidian border border-white/15 text-ivory" />
+              </div>
+              <div class="pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-3">
+                <button onclick="resetAllData()" class="px-4 py-2 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-300 border border-red-500/20">
+                  Reset Data ke Awal
+                </button>
+                <button onclick="saveSettingsForm()" class="px-5 py-2.5 rounded-xl bg-ivory text-obsidian font-semibold hover:bg-champagne transition">
+                  Simpan Pengaturan
+                </button>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL DIALOG FOR ADMIN CRUD                -->
+  <!-- ========================================== -->
+  <div id="modal-backdrop" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div id="modal-content" class="bg-midnight border border-white/15 rounded-2xl max-w-lg w-full p-6 space-y-4 max-h-[90vh] overflow-y-auto text-xs"></div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast-box" class="fixed bottom-6 right-6 z-50 hidden px-4 py-3 rounded-xl bg-midnight border border-champagne text-xs text-ivory shadow-2xl items-center gap-2.5">
+    <span class="text-champagne">✦</span>
+    <span id="toast-text"></span>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- FOOTER                                     -->
+  <!-- ========================================== -->
+  <footer class="bg-obsidian border-t border-white/10 pt-16 pb-12 text-sm text-silver">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-white/10">
+        <div class="md:col-span-2 space-y-4">
+          <div class="relative inline-flex items-center">
+            <span class="text-2xl font-extrabold tracking-wider lowercase text-ivory font-display">zenix</span>
+            <svg class="w-5 h-5 -mt-3 -ml-0.5 text-champagne" viewBox="0 0 32 32" fill="currentColor">
+              <path d="M14 2 C14 10 16 12 24 12 C16 12 14 14 14 22 C14 14 12 12 4 12 C12 12 14 10 14 2 Z" />
+              <path d="M25 1 C25 4.5 26 5.5 29.5 5.5 C26 5.5 25 6.5 25 10 C25 6.5 24 5.5 20.5 5.5 C24 5.5 25 4.5 25 1 Z" />
+            </svg>
+          </div>
+          <p id="footer-tagline" class="text-ivory font-medium">Aplikasi Premium. Harga Mahasiswa.</p>
+          <p class="max-w-md text-xs leading-relaxed text-silver/80">
+            Toko Digital Premium — Kebutuhan Digitalmu, Kini Lebih Terjangkau. ZENIX menerapkan sistem pengadaan manual tanpa stok mengendap (zero-inventory) untuk menjamin harga terbaik bagi mahasiswa & kreator.
+          </p>
+          <div class="pt-2 flex items-center gap-3 text-xs font-mono text-champagne">
+            <span id="footer-wa-label">WA ADMIN: +6285128000617</span>
+            <span>•</span>
+            <span>HARGA VIA ADMIN</span>
+          </div>
+        </div>
+
+        <div class="space-y-3">
+          <h4 class="text-xs font-mono uppercase tracking-widest text-ivory">Navigasi Halaman</h4>
+          <ul class="space-y-2 text-xs">
+            <li><button onclick="navigateTo('index.html')" class="hover:text-white transition">Beranda (index.html)</button></li>
+            <li><button onclick="navigateTo('catalog.html')" class="hover:text-white transition">Katalog Produk (catalog.html)</button></li>
+            <li><button onclick="navigateTo('product.html')" class="hover:text-white transition">Detail & Pemesanan (product.html)</button></li>
+            <li><button onclick="navigateTo('admin.html')" class="hover:text-champagne transition">Terminal Admin (admin.html)</button></li>
+          </ul>
+        </div>
+
+        <div class="space-y-3">
+          <h4 class="text-xs font-mono uppercase tracking-widest text-ivory">Pembayaran Diterima</h4>
+          <div id="footer-payments-badges" class="flex flex-wrap gap-1.5"></div>
+          <p class="text-[11px] text-silver/70 leading-relaxed pt-2">
+            Semua pembayaran diverifikasi secara manual oleh Admin setelah ketersediaan stok dan harga terbaru dikonfirmasi.
+          </p>
+        </div>
+      </div>
+
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-silver/60">
+        <p>© 2026 ZENIX — Premium Digital Store. Seluruh hak cipta dilindungi.</p>
+        <p class="font-mono text-[11px]">Seluruh nama aplikasi dan merek dagang adalah milik pemilik resminya masing-masing.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================================== -->
+  <!-- APPLICATION JAVASCRIPT                     -->
+  <!-- ========================================== -->
+  <script>
+    // 1. DEFAULT DATA (10 PRODUK SESUAI LOGO YANG DIUNGGAH)
+    const DEFAULT_SETTINGS = {
+      storeName: 'ZENIX',
+      tagline: 'Aplikasi Premium. Harga Mahasiswa.',
+      description: 'Premium Digital Store.',
+      supportingCopy: 'Kebutuhan Digitalmu, Kini Lebih Terjangkau.',
+      whatsappNumber: '6285128000617'
+    };
+
+    const DEFAULT_PRODUCTS = [
+      {
+        id: 'prod-netflix',
+        name: 'Netflix Premium',
+        category: 'Streaming',
+        shortDesc: 'Streaming film dan serial global kualitas 4K Ultra HD + HDR tanpa iklan di semua perangkat.',
+        fullDesc: 'Nikmati akses penuh ke ribuan film, serial orisinal, anime, dan dokumenter pemenang penghargaan dalam resolusi 4K Ultra HD. Tersedia pilihan profil Sharing maupun Private bergaransi penuh.',
+        active: true,
+        artworkType: 'netflix',
+        packages: ['1 Profil 1 Device (Sharing)', '1 Profil (Semi-Private)', 'Akun Private (5 Profil)'],
+        durations: ['1 Bulan', '3 Bulan', '6 Bulan', '1 Tahun'],
+        terms: [
+          'Dilarang mengubah sandi atau pengaturan tagihan pada paket Sharing.',
+          'Harga dikonfirmasi manual oleh Admin sesuai stok supplier terbaru.',
+          'Garansi penuh selama masa langganan aktif.'
+        ]
+      },
+      {
+        id: 'prod-spotify',
+        name: 'Spotify Premium',
+        category: 'Streaming',
+        shortDesc: 'Streaming musik bebas iklan, unduh lagu offline, dan kualitas audio sangat tinggi untuk menemani belajar.',
+        fullDesc: 'Dengarkan jutaan lagu dan podcast tanpa jeda iklan. Sangat cocok untuk mahasiswa dan pekerja kreatif dengan fitur unduh offline dan kualitas audio terbaik.',
+        active: true,
+        artworkType: 'spotify',
+        packages: ['Individual Plan', 'Student Plan', 'Family Plan (Via Invite)', 'Duo Plan'],
+        durations: ['1 Bulan', '3 Bulan', '6 Bulan', '1 Tahun'],
+        terms: [
+          'Bisa menggunakan akun lama (invite) atau akun baru sesuai ketersediaan.',
+          'Harga via admin mengikuti batch supplier paling hemat saat pemesanan.',
+          'Garansi penuh sesuai durasi yang dipilih.'
+        ]
+      },
+      {
+        id: 'prod-youtube',
+        name: 'YouTube Premium',
+        category: 'Streaming',
+        shortDesc: 'Nonton video bebas iklan, putar di latar belakang HP, dan gratis akses penuh YouTube Music Premium.',
+        fullDesc: 'Tonton video kuliah, tutorial, dan hiburan favoritmu tanpa gangguan iklan sedikit pun. Sudah termasuk akses penuh ke YouTube Music Premium dan fitur putar layar mati.',
+        active: true,
+        artworkType: 'youtube',
+        packages: ['Individual (Via Invite Email)', 'Individual (Akun Private)', 'Family Plan Invite'],
+        durations: ['1 Bulan', '3 Bulan', '6 Bulan', '1 Tahun'],
+        terms: [
+          'Aktivasi mudah langsung ke email Google pribadi atau akun dari admin.',
+          'Verifikasi stok dan harga dilakukan manual sebelum pembayaran.',
+          'Garansi penuh selama periode berlangganan.'
+        ]
+      },
+      {
+        id: 'prod-disney',
+        name: 'Disney+ Hotstar',
+        category: 'Streaming',
+        shortDesc: 'Koleksi lengkap film Marvel, Star Wars, Disney, Pixar, dan tayangan eksklusif resolusi hingga 4K.',
+        fullDesc: 'Tonton blockbuster terbaru dari Marvel Studios, Pixar, Disney, National Geographic, hingga serial Asia populer dengan subtitle Bahasa Indonesia.',
+        active: true,
+        artworkType: 'disney',
+        packages: ['Sharing Plan (Login OTP)', 'Private Plan'],
+        durations: ['1 Bulan', '3 Bulan', '1 Tahun'],
+        terms: [
+          'Login dibantu oleh Admin melalui verifikasi nomor/OTP.',
+          'Sesuaikan penggunaan jumlah layar dengan paket yang dipilih.',
+          'Harga via admin dan bergaransi resmi selama masa aktif.'
+        ]
+      },
+      {
+        id: 'prod-prime',
+        name: 'Amazon Prime Video',
+        category: 'Streaming',
+        shortDesc: 'Streaming serial Amazon Originals, film box office, dan anime populer dengan kualitas Ultra HD.',
+        fullDesc: 'Akses ribuan judul film eksklusif dan serial populer seperti The Boys, Fallout, dan Rings of Power di HP, laptop, maupun Smart TV.',
+        active: true,
+        artworkType: 'prime',
+        packages: ['Sharing 1 Profil', 'Private Full Akun'],
+        durations: ['1 Bulan', '3 Bulan', '6 Bulan'],
+        terms: [
+          'Mendukung semua perangkat (iOS, Android, Web, Smart TV).',
+          'Harga dikonfirmasi real-time melalui WhatsApp Admin.',
+          'Garansi penggantian jika terjadi kendala sistem.'
+        ]
+      },
+      {
+        id: 'prod-iqiyi',
+        name: 'iQIYI Premium VIP',
+        category: 'Streaming',
+        shortDesc: 'Nonton drama China, anime terbaru, dan variety show Asia lebih awal dengan kualitas Blu-ray 1080P/4K.',
+        fullDesc: 'Langganan VIP iQIYI memungkinkan kamu melewati iklan, menonton episode terbaru lebih cepat (Express), dan menikmati audio Dolby.',
+        active: true,
+        artworkType: 'iqiyi',
+        packages: ['Standard VIP (Sharing)', 'Standard VIP (Private)', 'Premium VIP 4K'],
+        durations: ['1 Bulan', '3 Bulan', '1 Tahun'],
+        terms: [
+          'Tersedia paket Sharing hemat maupun Private 1 Bulan.',
+          'Konfirmasi ketersediaan stok langsung via WhatsApp Admin.',
+          'Bergaransi penuh selama masa aktif.'
+        ]
+      },
+      {
+        id: 'prod-alight',
+        name: 'Alight Motion Pro',
+        category: 'Edit Video',
+        shortDesc: 'Aplikasi motion graphics profesional di HP: animasi vektor, efek warna neon, keyframe halus tanpa watermark.',
+        fullDesc: 'Standar industri untuk pembuatan jedag-jedug, AMV, dan motion design di smartphone. Buka seluruh efek Pro, preset XML, dan ekspor video tanpa tanda air.',
+        active: true,
+        artworkType: 'alight',
+        packages: ['Private Account Pro', 'Sharing Account Pro'],
+        durations: ['1 Bulan', '6 Bulan', '1 Tahun'],
+        terms: [
+          'Mendukung perangkat Android dan iOS.',
+          'Panduan login dikirimkan langsung setelah pembayaran diverifikasi.',
+          'Harga via admin berdasarkan kurs supplier terkini.'
+        ]
+      },
+      {
+        id: 'prod-capcut',
+        name: 'CapCut Pro',
+        category: 'Edit Video',
+        shortDesc: 'Buka semua efek transisi Pro, auto-caption AI, hapus background video, dan ekspor 4K 60fps tanpa watermark.',
+        fullDesc: 'Senjata utama kreator TikTok, Reels, dan YouTube Shorts. Nikmati fitur AI lengkap, stabilisasi video, penyimpanan cloud, dan ribuan template Pro.',
+        active: true,
+        artworkType: 'capcut',
+        packages: ['Sharing Pro Account', 'Private Pro Account', 'Team Workspace'],
+        durations: ['1 Bulan', '3 Bulan', '6 Bulan', '1 Tahun'],
+        terms: [
+          'Bisa digunakan di HP (Android/iOS) maupun Laptop/PC (Windows/Mac).',
+          'Akun Sharing memiliki batas perangkat sesuai ketentuan.',
+          'Garansi penuh selama masa berlangganan.'
+        ]
+      },
+      {
+        id: 'prod-canva',
+        name: 'Canva Pro',
+        category: 'Desain',
+        shortDesc: 'Akses tak terbatas ke Magic Studio AI, hapus background 1 klik, Brand Kit, dan 100+ juta aset desain premium.',
+        fullDesc: 'Percepat pembuatan slide presentasi kuliah, poster organisasi, hingga portofolio desain freelance dengan fitur lengkap Canva Pro.',
+        active: true,
+        artworkType: 'canva',
+        packages: ['Invite via Email (Tim / Edu)', 'Private Pro Subscription'],
+        durations: ['1 Bulan', '3 Bulan', '6 Bulan', '1 Tahun'],
+        terms: [
+          'Aktivasi langsung menggunakan email akun Canva milikmu sendiri.',
+          'Desain pribadimu tetap aman dan tidak terlihat oleh anggota lain.',
+          'Garansi penuh selama masa aktif paket.'
+        ]
+      },
+      {
+        id: 'prod-chatgpt',
+        name: 'ChatGPT Plus',
+        category: 'Produktivitas',
+        shortDesc: 'Akses prioritas ke model OpenAI terbaru (GPT-4o), analisis dokumen/PDF, pembuatan gambar DALL·E, dan coding.',
+        fullDesc: 'Tingkatkan produktivitas riset tugas kuliah, pemrograman, analisis data, dan penulisan kreatif dengan kecerdasan buatan paling mutakhir dari OpenAI.',
+        active: true,
+        artworkType: 'chatgpt',
+        packages: ['Sharing Plus Account', 'Private Plus Account (Upgrade/Fresh)'],
+        durations: ['1 Bulan', '3 Bulan'],
+        terms: [
+          'Pada akun Sharing, harap menjaga privasi riwayat chat pengguna lain.',
+          'Stok dan harga ChatGPT Plus sangat dinamis — wajib cek via Admin terlebih dahulu.',
+          'Garansi penuh sesuai durasi yang disepakati.'
+        ]
+      }
+    ];
+
+    const DEFAULT_SUPPLIERS = [
+      {
+        id: 'sup-1',
+        name: 'itemku.id',
+        assignedProducts: ['Netflix Premium', 'Spotify Premium', 'YouTube Premium', 'Canva Pro'],
+        recordedPrice: '',
+        stockStatus: 'Cek Saat Order',
+        warrantyInfo: 'Sesuai rating & garansi toko penjual',
+        refundPolicy: 'Pengembalian saldo via Trade Guard jika gagal kirim',
+        lastChecked: 'Belum dicek',
+        notes: 'Marketplace utama untuk voucher dan invite instan.'
+      },
+      {
+        id: 'sup-2',
+        name: 'macstoredigital.id',
+        assignedProducts: ['CapCut Pro', 'Canva Pro', 'ChatGPT Plus'],
+        recordedPrice: '',
+        stockStatus: 'Cek Saat Order',
+        warrantyInfo: 'Garansi penuh dengan jaminan ganti baru',
+        refundPolicy: 'Ganti akun terlebih dahulu; kredit prorata jika stok habis',
+        lastChecked: 'Belum dicek',
+        notes: 'Spesialis aplikasi desain, AI, dan produktivitas.'
+      },
+      {
+        id: 'sup-3',
+        name: 'serverhandal.id',
+        assignedProducts: ['YouTube Premium', 'Spotify Premium', 'Netflix Premium'],
+        recordedPrice: '',
+        stockStatus: 'Cek Saat Order',
+        warrantyInfo: 'Garansi 30 hari per siklus tagihan',
+        refundPolicy: 'Replacement akun maksimal 1x24 jam',
+        lastChecked: 'Belum dicek',
+        notes: 'Server pemenuhan langganan streaming yang stabil.'
+      },
+      {
+        id: 'sup-4',
+        name: 'pasarakun.com',
+        assignedProducts: ['CapCut Pro', 'Alight Motion Pro', 'Disney+ Hotstar', 'Amazon Prime Video'],
+        recordedPrice: '',
+        stockStatus: 'Cek Saat Order',
+        warrantyInfo: 'Garansi sesuai deskripsi paket',
+        refundPolicy: 'Refund saldo jika stok pengganti kosong',
+        lastChecked: 'Belum dicek',
+        notes: 'Alternatif supplier untuk aplikasi edit video & streaming.'
+      },
+      {
+        id: 'sup-5',
+        name: 'Neuto Digital Store',
+        assignedProducts: ['Spotify Premium', 'Canva Pro', 'Alight Motion Pro', 'iQIYI Premium VIP'],
+        recordedPrice: '',
+        stockStatus: 'Cek Saat Order',
+        warrantyInfo: 'Garansi langsung via admin B2B',
+        refundPolicy: 'Penyelesaian manual via admin reseller',
+        lastChecked: 'Belum dicek',
+        notes: 'Mitra reseller langsung untuk harga mahasiswa.'
+      }
+    ];
+
+    const DEFAULT_PAYMENTS = [
+      { id: 'pay-qris', name: 'QRIS', type: 'Scan QR (Semua E-Wallet & M-Banking)', instructions: 'Admin mengirimkan kode QRIS setelah harga dikonfirmasi.', active: true },
+      { id: 'pay-gopay', name: 'GoPay', type: 'Transfer E-Wallet', instructions: 'Transfer manual ke nomor GoPay Admin.', active: true },
+      { id: 'pay-dana', name: 'DANA', type: 'Transfer E-Wallet', instructions: 'Transfer manual ke nomor DANA Admin.', active: true },
+      { id: 'pay-bni', name: 'BNI', type: 'Transfer Bank', instructions: 'Transfer manual ke rekening BNI Admin.', active: true },
+      { id: 'pay-seabank', name: 'SeaBank', type: 'Transfer Bank', instructions: 'Transfer instan bebas biaya admin via SeaBank.', active: true },
+      { id: 'pay-bri', name: 'BRI', type: 'Transfer Bank', instructions: 'Transfer manual via BRImo / ATM ke rekening Admin.', active: true }
+    ];
+
+    // 2. STATE MANAGEMENT (LOCALSTORAGE)
+    function loadState(key, fallback) {
+      try {
+        const raw = localStorage.getItem(key);
+        return raw ? JSON.parse(raw) : fallback;
+      } catch (e) {
+        return fallback;
+      }
+    }
+
+    function saveState() {
+      try {
+        localStorage.setItem('zenix_html_settings_v2', JSON.stringify(state.settings));
+        localStorage.setItem('zenix_html_products_v2', JSON.stringify(state.products));
+        localStorage.setItem('zenix_html_suppliers_v2', JSON.stringify(state.suppliers));
+        localStorage.setItem('zenix_html_orders_v2', JSON.stringify(state.orders));
+        localStorage.setItem('zenix_html_payments_v2', JSON.stringify(state.payments));
+      } catch (e) {}
+    }
+
+    const state = {
+      activePage: 'index.html',
+      selectedCategory: 'Semua',
+      searchQuery: '',
+      selectedProductId: 'prod-netflix',
+      orderForm: {
+        customerName: '',
+        selectedPackage: '',
+        selectedDuration: '',
+        quantity: 1
+      },
+      adminTab: 'Overview',
+      settings: loadState('zenix_html_settings_v2', DEFAULT_SETTINGS),
+      products: loadState('zenix_html_products_v2', DEFAULT_PRODUCTS),
+      suppliers: loadState('zenix_html_suppliers_v2', DEFAULT_SUPPLIERS),
+      orders: loadState('zenix_html_orders_v2', []),
+      payments: loadState('zenix_html_payments_v2', DEFAULT_PAYMENTS)
+    };
+
+    // 3. CUSTOM PRODUCT ARTWORK GENERATOR (MATCHING THE 10 UPLOADED LOGOS)
+    function getProductArtworkHTML(type, heightClass = 'h-48') {
+      switch (type) {
+        case 'netflix':
+          return `
+            <div class="w-full ${heightClass} relative overflow-hidden bg-black flex flex-col items-center justify-center border-b border-white/10 select-none">
+              <div class="absolute w-36 h-36 rounded-full bg-red-600/15 blur-2xl"></div>
+              <svg class="w-16 h-20 relative z-10" viewBox="0 0 80 100" fill="none">
+                <rect x="14" y="10" width="16" height="80" fill="#B1060F"/>
+                <rect x="50" y="10" width="16" height="80" fill="#B1060F"/>
+                <polygon points="14,10 30,10 66,90 50,90" fill="#E50914"/>
+              </svg>
+              <div class="relative z-10 mt-1 text-red-600 font-extrabold tracking-[0.26em] text-sm font-display">NETFLIX</div>
+            </div>`;
+        case 'spotify':
+          return `
+            <div class="w-full ${heightClass} relative overflow-hidden bg-black flex items-center justify-center gap-3 border-b border-white/10 select-none px-4">
+              <div class="absolute w-36 h-36 rounded-full bg-[#1ED760]/10 blur-2xl"></div>
+              <svg class="w-14 h-14 shrink-0 relative z-10" viewBox="0 0 100 100" fill="none">
+                <circle cx="50" cy="50" r="44" fill="#1ED760"/>
+                <path d="M27 38C44 33 63 35 76 43" stroke="#000000" stroke-width="7" stroke-linecap="round"/>
+                <path d="M31 52C45 48 60 50 71 57" stroke="#000000" stroke-width="6" stroke-linecap="round"/>
+                <path d="M34 65C45 62 57 63 66 69" stroke="#000000" stroke-width="5" stroke-linecap="round"/>
+              </svg>
+              <span class="relative z-10 text-[#1ED760] font-extrabold text-3xl tracking-tight font-display">Spotify<sup class="text-xs ml-0.5">®</sup></span>
+            </div>`;
+        case 'youtube':
+          return `
+            <div class="w-full ${heightClass} relative overflow-hidden bg-[#0B0F17] flex items-center justify-center border-b border-white/10 select-none">
+              <div class="absolute inset-0 opacity-20 halftone-bg"></div>
+              <div class="w-28 h-28 rounded-full bg-[#DC0F17] flex items-center justify-center shadow-[0_0_40px_rgba(220,15,23,0.45)] relative z-10">
+                <div class="w-16 h-11 rounded-xl bg-white flex items-center justify-center">
+                  <svg class="w-6 h-6 ml-0.5" viewBox="0 0 24 24" fill="#DC0F17">
+                    <polygon points="6,4 20,12 6,20"/>
+                  </svg>
+                </div>
+              </div>
+            </div>`;
+        case 'disney':
+          return `
+            <div class="w-full ${heightClass} relative overflow-hidden bg-[#0A0F1D] flex items-center justify-center border-b border-white/10 select-none">
+              <div class="w-32 h-32 rounded-[28px] bg-gradient-to-b from-[#162044] via-[#0F2462] to-[#08389A] border border-white/25 shadow-[inset_0_2px_8px_rgba(255,255,255,0.35),0_12px_30px_rgba(8,56,154,0.5)] flex flex-col items-center justify-center p-3 relative">
+                <svg class="w-24 h-10" viewBox="0 0 120 45" fill="none">
+                  <path d="M35 20 C 55 2, 85 4, 98 24" stroke="#67E8F9" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <div class="-mt-5 text-white font-bold text-lg tracking-wide font-display">Disney+</div>
+                <div class="text-white font-extrabold text-base tracking-tight -mt-1">hotstar</div>
+              </div>
+            </div>`;
+        case 'prime':
+          return `
+            <div class="w-full ${heightClass} relative overflow-hidden bg-[#0A0F1D] flex items-center justify-center border-b border-white/10 select-none">
+              <div class="w-32 h-32 rounded-[28px] bg-gradient-to-b from-[#36C5F0] via-[#1B9AD6] to-[#0F5499] border border-white/30 shadow-[inset_0_2px_8px_rgba(255,255,255,0.4),0_12px_30px_rgba(27,154,214,0.4)] flex flex-col items-center justify-center p-3">
+                <div class="text-white font-extrabold text-xl leading-none tracking-tight">prime</div>
+                <div class="text-white font-extrabold text-xl leading-none tracking-tight mt-0.5">video</div>
+                <svg class="w-20 h-6 mt-1" viewBox="0 0 100 26" fill="none">
+                  <path d="M12 8 C 35 22, 65 22, 86 10" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/>
+                  <path d="M78 7 L 89 9 L 84 19" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </div>`;
+        case 'iqiyi':
+          return `
+            <div class="w-full ${heightClass} relative overflow-hidden bg-[#00CC36] flex items-center justify-center border-b border-white/10 select-none">
+              <span class="text-white font-black text-4xl tracking-wider font-display drop-shadow">iQIYI</span>
+            </div>`;
+        case 'alight':
+          return `
+            <div class="w-full ${heightClass} relative overflow-hidden bg-[#070510] flex items-center justify-center border-b border-white/10 select-none">
+              <div class="absolute w-40 h-40 rounded-full bg-gradient-to-r from-emerald-400/25 via-cyan-400/20 to-fuchsia-500/25 blur-2xl"></div>
+              <div class="w-32 h-32 rounded-[26px] bg-[#111320] border-2 border-cyan-400/50 shadow-[0_0_25px_rgba(34,211,238,0.35),inset_0_0_15px_rgba(217,70,239,0.3)] flex flex-col items-center justify-center p-2 relative z-10">
+                <svg class="w-16 h-16" viewBox="0 0 100 100" fill="none">
+                  <path d="M30 35 A 28 28 0 1 1 68 72" stroke="url(#amGrad)" stroke-width="6" stroke-linecap="round"/>
+                  <path d="M38 42 A 19 19 0 1 1 60 66" stroke="url(#amGrad)" stroke-width="6" stroke-linecap="round"/>
+                  <path d="M45 50 A 10 10 0 1 1 52 59" stroke="#34D399" stroke-width="6" stroke-linecap="round"/>
+                  <defs>
+                    <linearGradient id="amGrad" x1="20" y1="20" x2="80" y2="80" gradientUnits="userSpaceOnUse">
+                      <stop stop-color="#34D399"/>
+                      <stop offset="0.5" stop-color="#38BDF8"/>
+                      <stop offset="1" stop-color="#E879F9"/>
+                    </linearGradient>
+                  </defs>
+                </svg>
+                <div class="text-[10px] font-extrabold tracking-widest bg-gradient-to-r from-emerald-300 via-cyan-300 to-fuchsia-400 bg-clip-text text-transparent leading-tight">ALIGHT</div>
+                <div class="text-[7px] font-mono tracking-[0.25em] text-cyan-300">MOTION</div>
+              </div>
+            </div>`;
+        case 'capcut':
+          return `
+            <div class="w-full ${heightClass} relative overflow-hidden bg-black flex items-center justify-center gap-3 border-b border-white/10 select-none px-4">
+              <svg class="w-14 h-12 shrink-0" viewBox="0 0 80 64" fill="none">
+                <rect x="6" y="10" width="44" height="44" rx="8" stroke="#FFFFFF" stroke-width="6"/>
+                <path d="M14 18 L68 50 M68 14 L14 46" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round"/>
+              </svg>
+              <span class="text-white font-bold text-3xl tracking-tight font-display">CapCut</span>
+            </div>`;
+        case 'canva':
+          return `
+            <div class="w-full ${heightClass} relative overflow-hidden bg-[#0B0F19] flex items-center justify-center border-b border-white/10 select-none">
+              <div class="w-32 h-32 rounded-full bg-gradient-to-br from-[#00C4CC] via-[#3B5998] to-[#7D2AE8] shadow-[inset_0_4px_12px_rgba(255,255,255,0.45),0_10px_30px_rgba(125,42,232,0.45)] flex items-center justify-center">
+                <span class="text-white font-extrabold italic text-3xl tracking-tight font-serif drop-shadow">Canva</span>
+              </div>
+            </div>`;
+        case 'chatgpt':
+        default:
+          return `
+            <div class="w-full ${heightClass} relative overflow-hidden bg-white flex flex-col items-center justify-center border-b border-white/10 select-none">
+              <svg class="w-16 h-16 text-black" viewBox="0 0 100 100" fill="none">
+                <circle cx="50" cy="32" r="18" stroke="#000" stroke-width="6"/>
+                <circle cx="66" cy="41" r="18" stroke="#000" stroke-width="6"/>
+                <circle cx="66" cy="59" r="18" stroke="#000" stroke-width="6"/>
+                <circle cx="50" cy="68" r="18" stroke="#000" stroke-width="6"/>
+                <circle cx="34" cy="59" r="18" stroke="#000" stroke-width="6"/>
+                <circle cx="34" cy="41" r="18" stroke="#000" stroke-width="6"/>
+              </svg>
+              <span class="mt-1.5 text-black font-bold text-xl tracking-tight font-display">ChatGPT</span>
+            </div>`;
+      }
+    }
+
+    // 4. GENERATE HERO WAVE SVG PATHS ONCE
+    function renderHeroWavePaths() {
+      const container = document.getElementById('hero-wave-paths');
+      if (!container) return;
+      let html = '';
+      for (let idx = 0; idx < 22; idx++) {
+        const offset = idx * 18;
+        html += `<path d="M-100 ${120 + offset} C 320 ${420 + offset * 0.4}, 480 ${460 - offset * 0.2}, 720 ${460 - offset * 0.3} C 960 ${460 - offset * 0.2}, 1120 ${420 + offset * 0.4}, 1540 ${120 + offset}" stroke="url(#waveLineGrad)" stroke-width="1.2"/>`;
+      }
+      for (let i = 0; i < 19; i++) {
+        const xBottom = (i - 9) * 140 + 720;
+        html += `<line x1="720" y1="380" x2="${xBottom}" y2="600" stroke="rgba(244,241,233,0.11)" stroke-width="1"/>`;
+      }
+      container.innerHTML = html;
+    }
+
+    // 5. NAVIGATION & ROUTING
+    function navigateTo(page, productId = null) {
+      if (productId) {
+        state.selectedProductId = productId;
+        initOrderFormForProduct(productId);
+      }
+      state.activePage = page;
+
+      document.getElementById('view-home').classList.toggle('hidden', page !== 'index.html');
+      document.getElementById('view-catalog').classList.toggle('hidden', page !== 'catalog.html');
+      document.getElementById('view-product').classList.toggle('hidden', page !== 'product.html');
+      document.getElementById('view-admin').classList.toggle('hidden', page !== 'admin.html');
+
+      document.getElementById('active-route-badge').textContent = page;
+      document.getElementById('mobile-menu').classList.add('hidden');
+
+      document.querySelectorAll('.route-tab').forEach(btn => {
+        btn.classList.toggle('text-champagne', btn.dataset.route === page);
+      });
+
+      renderAll();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function toggleMobileMenu() {
+      document.getElementById('mobile-menu').classList.toggle('hidden');
+    }
+
+    function scrollToHowItWorks() {
+      if (state.activePage !== 'index.html') {
+        navigateTo('index.html');
+      }
+      setTimeout(() => {
+        const el = document.getElementById('how-it-works');
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    }
+
+    function filterCategoryFromHome(category) {
+      state.selectedCategory = category;
+      navigateTo('catalog.html');
+    }
+
+    // 6. RENDER PRODUCT CARDS (HOMEPAGE & CATALOG)
+    function createProductCardHTML(product) {
+      const pkgsPreview = product.packages.slice(0, 2).map(pkg =>
+        `<span class="px-2 py-0.5 rounded bg-obsidian border border-white/10 text-[11px] text-ivory">${pkg}</span>`
+      ).join('');
+      const moreCount = product.packages.length > 2
+        ? `<span class="px-2 py-0.5 rounded bg-obsidian border border-white/10 text-[11px] text-silver">+${product.packages.length - 2} lagi</span>`
+        : '';
+
+      return `
+        <div class="group rounded-2xl glass-card overflow-hidden transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between">
+          <div>
+            ${getProductArtworkHTML(product.artworkType, 'h-48')}
+            <div class="p-6">
+              <div class="flex items-center justify-between gap-2 mb-3">
+                <span class="px-2.5 py-0.5 rounded-full bg-white/5 border border-white/10 text-[11px] font-mono text-silver">${product.category}</span>
+                <span class="px-2.5 py-0.5 rounded-full bg-champagne/15 border border-champagne/40 text-[11px] font-mono text-goldlight">Harga via admin</span>
+              </div>
+              <h3 class="text-xl font-bold font-display text-ivory mb-2">${product.name}</h3>
+              <p class="text-xs text-silver leading-relaxed mb-5">${product.shortDesc}</p>
+              <div class="space-y-2 pt-3 border-t border-white/10">
+                <div class="text-[10px] font-mono uppercase tracking-wider text-silver/70">Pilihan Paket (${product.packages.length}):</div>
+                <div class="flex flex-wrap gap-1.5">${pkgsPreview}${moreCount}</div>
+              </div>
+            </div>
+          </div>
+          <div class="px-6 pb-6 pt-2">
+            <button onclick="navigateTo('product.html', '${product.id}')" class="w-full py-3 rounded-xl bg-ivory hover:bg-champagne text-obsidian font-semibold text-xs tracking-wide transition flex items-center justify-center gap-2">
+              <span>Detail & Pesan</span>
+              <span>→</span>
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderHomePage() {
+      const activeProds = state.products.filter(p => p.active);
+      document.getElementById('home-total-products').textContent = activeProds.length;
+      const featuredGrid = document.getElementById('home-featured-grid');
+      if (featuredGrid) {
+        featuredGrid.innerHTML = activeProds.slice(0, 6).map(createProductCardHTML).join('');
+      }
+    }
+
+    function renderCatalogPage() {
+      const categories = ['Semua', 'Streaming', 'Edit Video', 'Desain', 'Produktivitas'];
+      const btnContainer = document.getElementById('catalog-category-buttons');
+      if (btnContainer) {
+        btnContainer.innerHTML = categories.map(cat => {
+          const isSelected = state.selectedCategory === cat;
+          return `
+            <button onclick="setCatalogCategory('${cat}')" class="px-4 py-2.5 rounded-xl text-xs font-medium transition ${
+              isSelected
+                ? 'bg-ivory text-obsidian font-semibold shadow-[0_0_20px_rgba(244,241,233,0.2)]'
+                : 'bg-midnight/70 text-silver border border-white/10 hover:border-white/25 hover:text-white'
+            }">${cat}</button>
+          `;
+        }).join('');
+      }
+
+      const activeProds = state.products.filter(p => p.active);
+      const filtered = activeProds.filter(p => {
+        const matchCat = state.selectedCategory === 'Semua' || p.category === state.selectedCategory;
+        const q = state.searchQuery.toLowerCase();
+        const matchQuery = p.name.toLowerCase().includes(q) || p.category.toLowerCase().includes(q) || p.shortDesc.toLowerCase().includes(q);
+        return matchCat && matchQuery;
+      });
+
+      document.getElementById('catalog-count-label').innerHTML =
+        `MENAMPILKAN <span class="text-ivory font-bold">${filtered.length}</span> DARI <span class="text-ivory">${activeProds.length}</span> APLIKASI AKTIF`;
+
+      const grid = document.getElementById('catalog-grid');
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full p-12 rounded-2xl glass-card text-center space-y-4">
+            <h3 class="text-lg font-semibold text-ivory">Produk tidak ditemukan</h3>
+            <p class="text-xs text-silver max-w-md mx-auto">Coba reset kata kunci pencarian atau pilih kategori lain. Kamu juga bisa langsung menghubungi Admin via WhatsApp untuk request aplikasi khusus.</p>
+            <button onclick="resetCatalogFilters()" class="px-4 py-2 rounded-lg bg-ivory text-obsidian text-xs font-semibold">Reset Filter</button>
+          </div>
+        `;
+      } else {
+        grid.innerHTML = filtered.map(createProductCardHTML).join('');
+      }
+    }
+
+    function setCatalogCategory(cat) {
+      state.selectedCategory = cat;
+      renderCatalogPage();
+    }
+
+    function handleCatalogSearch(val) {
+      state.searchQuery = val;
+      renderCatalogPage();
+    }
+
+    function resetCatalogFilters() {
+      state.searchQuery = '';
+      state.selectedCategory = 'Semua';
+      const input = document.getElementById('catalog-search');
+      if (input) input.value = '';
+      renderCatalogPage();
+    }
+
+    // 7. PRODUCT DETAIL & WHATSAPP ORDER SYSTEM
+    function getSelectedProduct() {
+      return state.products.find(p => p.id === state.selectedProductId) || state.products[0];
+    }
+
+    function initOrderFormForProduct(productId) {
+      const prod = state.products.find(p => p.id === productId) || state.products[0];
+      if (!prod) return;
+      state.orderForm.selectedPackage = prod.packages[0] || 'Standard';
+      state.orderForm.selectedDuration = prod.durations[0] || '1 Bulan';
+      state.orderForm.quantity = 1;
+      const qtyInput = document.getElementById('order-qty-input');
+      if (qtyInput) qtyInput.value = 1;
+    }
+
+    function renderProductDetailPage() {
+      const prod = getSelectedProduct();
+      if (!prod) return;
+
+      if (!state.orderForm.selectedPackage || !prod.packages.includes(state.orderForm.selectedPackage)) {
+        state.orderForm.selectedPackage = prod.packages[0] || 'Standard';
+      }
+      if (!state.orderForm.selectedDuration || !prod.durations.includes(state.orderForm.selectedDuration)) {
+        state.orderForm.selectedDuration = prod.durations[0] || '1 Bulan';
+      }
+
+      // Quick switcher
+      const switcher = document.getElementById('product-quick-switcher');
+      switcher.innerHTML = state.products.filter(p => p.active).map(p => `
+        <button onclick="navigateTo('product.html', '${p.id}')" class="px-2.5 py-1 rounded-lg text-[11px] transition ${
+          p.id === prod.id ? 'bg-champagne text-obsidian font-semibold' : 'bg-white/5 text-silver hover:text-white'
+        }">${p.name}</button>
+      `).join('');
+
+      document.getElementById('detail-artwork-container').innerHTML = getProductArtworkHTML(prod.artworkType, 'h-64 sm:h-72');
+      document.getElementById('detail-category').textContent = prod.category;
+      document.getElementById('detail-name').textContent = prod.name;
+      document.getElementById('detail-desc').textContent = prod.fullDesc || prod.shortDesc;
+
+      document.getElementById('detail-terms').innerHTML = (prod.terms || []).map((t, i) => `
+        <li class="flex items-start gap-2.5">
+          <span class="text-champagne font-mono">0${i + 1}.</span>
+          <span>${t}</span>
+        </li>
+      `).join('');
+
+      // Packages buttons
+      document.getElementById('order-packages-list').innerHTML = prod.packages.map(pkg => {
+        const active = state.orderForm.selectedPackage === pkg;
+        return `
+          <button type="button" onclick="selectOrderPackage('${pkg.replace(/'/g, "\\'")}')" class="px-4 py-2.5 rounded-xl text-left text-xs font-medium border transition flex items-center justify-between ${
+            active ? 'bg-ivory text-obsidian border-ivory font-semibold' : 'bg-obsidian text-silver border-white/10 hover:border-white/30'
+          }">
+            <span>${pkg}</span>
+            ${active ? '<span>✓</span>' : ''}
+          </button>
+        `;
+      }).join('');
+
+      // Durations buttons
+      document.getElementById('order-durations-list').innerHTML = prod.durations.map(dur => {
+        const active = state.orderForm.selectedDuration === dur;
+        return `
+          <button type="button" onclick="selectOrderDuration('${dur.replace(/'/g, "\\'")}')" class="px-3 py-2.5 rounded-xl text-xs font-medium border transition ${
+            active ? 'bg-champagne text-obsidian border-champagne font-semibold' : 'bg-obsidian text-silver border-white/10 hover:border-white/30'
+          }">${dur}</button>
+        `;
+      }).join('');
+
+      updateOrderPreview();
+    }
+
+    function selectOrderPackage(pkg) {
+      state.orderForm.selectedPackage = pkg;
+      renderProductDetailPage();
+    }
+
+    function selectOrderDuration(dur) {
+      state.orderForm.selectedDuration = dur;
+      renderProductDetailPage();
+    }
+
+    function adjustOrderQty(delta) {
+      state.orderForm.quantity = Math.max(1, (parseInt(state.orderForm.quantity, 10) || 1) + delta);
+      document.getElementById('order-qty-input').value = state.orderForm.quantity;
+      updateOrderPreview();
+    }
+
+    function setOrderQty(val) {
+      state.orderForm.quantity = Math.max(1, parseInt(val, 10) || 1);
+      updateOrderPreview();
+    }
+
+    function updateOrderPreview() {
+      const prod = getSelectedProduct();
+      if (!prod) return;
+      const nameInput = document.getElementById('order-customer-name');
+      state.orderForm.customerName = nameInput ? nameInput.value : '';
+
+      const cleanPhone = (state.settings.whatsappNumber || '6285128000617').replace(/\D/g, '');
+      const customerLine = state.orderForm.customerName.trim()
+        ? `Nama: ${state.orderForm.customerName.trim()}\n`
+        : '';
+
+      const message =
+        `Halo Admin ${state.settings.storeName}, saya ingin memesan aplikasi berikut:\n\n` +
+        customerLine +
+        `Produk: ${prod.name}\n` +
+        `Paket: ${state.orderForm.selectedPackage}\n` +
+        `Durasi: ${state.orderForm.selectedDuration}\n` +
+        `Jumlah: ${state.orderForm.quantity}\n\n` +
+        `Mohon informasi *Harga via admin* terbaru beserta ketersediaan stoknya. Terima kasih!`;
+
+      const previewEl = document.getElementById('whatsapp-message-preview');
+      if (previewEl) previewEl.textContent = message;
+
+      const waBtn = document.getElementById('order-wa-button');
+      if (waBtn) {
+        waBtn.href = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
+      }
+    }
+
+    function simulateOrderToAdmin() {
+      const prod = getSelectedProduct();
+      const newOrder = {
+        id: 'ORD-' + Date.now().toString().slice(-5),
+        customerName: state.orderForm.customerName.trim() || 'Pelanggan WhatsApp',
+        whatsappNumber: '',
+        productName: prod.name,
+        packageName: `${state.orderForm.selectedPackage} (${state.orderForm.selectedDuration})`,
+        quantity: state.orderForm.quantity,
+        supplierName: state.suppliers[0]?.name || 'itemku.id',
+        hpp: '',
+        sellingPrice: '',
+        transactionFee: 0,
+        paymentStatus: 'Belum Dibayar',
+        orderStatus: 'Pending'
+      };
+      state.orders.unshift(newOrder);
+      saveState();
+      showToast('Draft pesanan berhasil dicatat ke Tabel Admin Lokal!');
+    }
+
+    // 8. ADMIN DASHBOARD LOGIC
+    function formatIDR(val) {
+      const num = parseFloat(val);
+      if (isNaN(num)) return 'Belum diisi';
+      return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(num);
+    }
+
+    function switchAdminTab(tabName) {
+      state.adminTab = tabName;
+      document.querySelectorAll('.admin-section').forEach(sec => {
+        sec.classList.toggle('hidden', sec.id !== `admin-tab-${tabName}`);
+      });
+      document.querySelectorAll('.admin-nav-btn').forEach(btn => {
+        const isActive = btn.dataset.admintab === tabName;
+        btn.className = `admin-nav-btn px-3.5 py-2.5 rounded-xl text-xs text-left shrink-0 transition ${
+          isActive ? 'bg-ivory text-obsidian font-semibold' : 'text-silver hover:bg-white/5 font-medium'
+        }`;
+      });
+      renderAdminDashboard();
+    }
+
+    function renderAdminDashboard() {
+      // Calculate financial metrics
+      let totalRevenue = 0;
+      let totalProfit = 0;
+      let pendingCount = 0;
+      let completedCount = 0;
+
+      state.orders.forEach(o => {
+        if (o.orderStatus === 'Pending' || o.orderStatus === 'Menunggu Pembayaran') pendingCount++;
+        if (o.orderStatus === 'Selesai') completedCount++;
+        const sell = parseFloat(o.sellingPrice);
+        const cost = parseFloat(o.hpp);
+        const fee = parseFloat(o.transactionFee) || 0;
+        if (!isNaN(sell) && (o.paymentStatus === 'Dibayar' || o.orderStatus === 'Selesai')) {
+          totalRevenue += sell;
+          if (!isNaN(cost)) totalProfit += (sell - cost - fee);
+        }
+      });
+
+      // Overview Cards
+      const cardsEl = document.getElementById('admin-overview-cards');
+      if (cardsEl) {
+        cardsEl.innerHTML = `
+          <div class="p-5 rounded-2xl glass-card">
+            <span class="text-[11px] font-mono uppercase text-silver">Total Pesanan</span>
+            <div class="text-2xl font-extrabold text-ivory mt-2">${state.orders.length}</div>
+          </div>
+          <div class="p-5 rounded-2xl glass-card">
+            <span class="text-[11px] font-mono uppercase text-silver">Pesanan Pending</span>
+            <div class="text-2xl font-extrabold text-champagne mt-2">${pendingCount}</div>
+          </div>
+          <div class="p-5 rounded-2xl glass-card">
+            <span class="text-[11px] font-mono uppercase text-silver">Pesanan Selesai</span>
+            <div class="text-2xl font-extrabold text-emerald-400 mt-2">${completedCount}</div>
+          </div>
+          <div class="p-5 rounded-2xl glass-card">
+            <span class="text-[11px] font-mono uppercase text-silver">Total Pendapatan</span>
+            <div class="text-lg font-extrabold text-ivory mt-2 font-mono">${formatIDR(totalRevenue)}</div>
+          </div>
+          <div class="p-5 rounded-2xl glass-card border-champagne/40">
+            <span class="text-[11px] font-mono uppercase text-champagne">Estimasi Profit</span>
+            <div class="text-lg font-extrabold text-goldlight mt-2 font-mono">${formatIDR(totalProfit)}</div>
+          </div>
+        `;
+      }
+
+      // Recent Orders Table
+      const recentTableEl = document.getElementById('admin-recent-orders-table');
+      if (recentTableEl) {
+        if (state.orders.length === 0) {
+          recentTableEl.innerHTML = `<div class="p-10 text-center text-xs text-silver">Belum ada transaksi tercatat. Klik "+ Catat Pesanan WhatsApp Baru" di kanan atas saat ada pelanggan memesan.</div>`;
+        } else {
+          recentTableEl.innerHTML = buildOrdersTableHTML(state.orders.slice(0, 5));
+        }
+      }
+
+      // Full Orders Table
+      const fullOrdersEl = document.getElementById('admin-orders-table');
+      if (fullOrdersEl) {
+        if (state.orders.length === 0) {
+          fullOrdersEl.innerHTML = `<div class="p-12 text-center text-xs text-silver">Belum ada pesanan aktif.</div>`;
+        } else {
+          fullOrdersEl.innerHTML = buildOrdersTableHTML(state.orders);
+        }
+      }
+
+      // Products List
+      const prodListEl = document.getElementById('admin-products-list');
+      if (prodListEl) {
+        prodListEl.innerHTML = state.products.map(p => `
+          <div class="p-5 rounded-2xl glass-card flex flex-col justify-between gap-4">
+            <div>
+              <div class="flex items-center justify-between gap-2 mb-2">
+                <span class="text-xs font-mono text-champagne">${p.category}</span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-mono ${p.active ? 'bg-emerald-500/20 text-emerald-300' : 'bg-red-500/20 text-red-300'}">${p.active ? 'AKTIF' : 'NONAKTIF'}</span>
+              </div>
+              <h3 class="text-lg font-bold text-ivory">${p.name}</h3>
+              <p class="text-xs text-silver mt-1">${p.shortDesc}</p>
+              <div class="text-[11px] text-silver mt-3 pt-3 border-t border-white/10 space-y-1">
+                <div><strong class="text-ivory">Paket:</strong> ${p.packages.join(', ')}</div>
+                <div><strong class="text-ivory">Durasi:</strong> ${p.durations.join(', ')}</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 pt-2">
+              <button onclick="openProductModal('${p.id}')" class="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-xs text-ivory border border-white/10">Edit</button>
+              <button onclick="toggleProductActive('${p.id}')" class="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-xs text-silver border border-white/10">${p.active ? 'Nonaktifkan' : 'Aktifkan'}</button>
+              <button onclick="deleteProduct('${p.id}')" class="px-3 py-1.5 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-xs text-red-300 border border-red-500/20 ml-auto">Hapus</button>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // Suppliers List
+      const supListEl = document.getElementById('admin-suppliers-list');
+      if (supListEl) {
+        supListEl.innerHTML = state.suppliers.map(s => `
+          <div class="p-5 rounded-2xl glass-card flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
+            <div class="space-y-2 max-w-2xl">
+              <div class="flex flex-wrap items-center gap-2.5">
+                <h3 class="text-lg font-bold text-ivory font-mono">${s.name}</h3>
+                <span class="px-2.5 py-0.5 rounded-full bg-white/5 border border-white/10 text-[11px] font-mono text-champagne">Stok: ${s.stockStatus}</span>
+                <span class="text-[11px] font-mono text-silver">Cek Terakhir: ${s.lastChecked}</span>
+              </div>
+              <p class="text-xs text-silver">${s.notes}</p>
+              <div class="flex flex-wrap gap-1.5 pt-1">
+                ${s.assignedProducts.map(ap => `<span class="px-2 py-0.5 rounded bg-obsidian border border-white/10 text-[11px] text-ivory">${ap}</span>`).join('')}
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-2 text-[11px] text-silver">
+                <div><strong class="text-ivory">Harga Tercatat:</strong> ${s.recordedPrice ? formatIDR(s.recordedPrice) : 'Cek saat order'}</div>
+                <div><strong class="text-ivory">Garansi:</strong> ${s.warrantyInfo}</div>
+                <div><strong class="text-ivory">Refund:</strong> ${s.refundPolicy}</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 shrink-0">
+              <button onclick="openSupplierModal('${s.id}')" class="px-3.5 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-xs text-ivory border border-white/10">Update / Edit</button>
+              <button onclick="deleteSupplier('${s.id}')" class="px-3 py-2 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-xs text-red-300 border border-red-500/20">Hapus</button>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // Payments List
+      const payListEl = document.getElementById('admin-payments-list');
+      if (payListEl) {
+        payListEl.innerHTML = state.payments.map(pm => `
+          <div class="p-5 rounded-2xl glass-card flex flex-col justify-between gap-4">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-lg font-bold text-ivory font-mono">${pm.name}</span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-mono ${pm.active ? 'bg-emerald-500/20 text-emerald-300' : 'bg-white/10 text-silver'}">${pm.active ? 'AKTIF' : 'NONAKTIF'}</span>
+              </div>
+              <div class="text-xs text-champagne mb-2">${pm.type}</div>
+              <p class="text-xs text-silver leading-relaxed">${pm.instructions}</p>
+            </div>
+            <button onclick="togglePaymentActive('${pm.id}')" class="w-full py-2 rounded-lg bg-white/5 hover:bg-white/10 text-xs text-ivory border border-white/10">
+              ${pm.active ? 'Nonaktifkan Metode' : 'Aktifkan Metode'}
+            </button>
+          </div>
+        `).join('');
+      }
+
+      // Settings Inputs
+      const sName = document.getElementById('set-store-name');
+      if (sName) {
+        sName.value = state.settings.storeName;
+        document.getElementById('set-store-tagline').value = state.settings.tagline;
+        document.getElementById('set-store-wa').value = state.settings.whatsappNumber;
+        document.getElementById('set-store-support').value = state.settings.supportingCopy;
+      }
+    }
+
+    function buildOrdersTableHTML(orderArray) {
+      return `
+        <table class="w-full text-left border-collapse text-xs">
+          <thead>
+            <tr class="border-b border-white/10 text-silver font-mono uppercase text-[10px]">
+              <th class="p-4">ID Pesanan</th>
+              <th class="p-4">Pelanggan</th>
+              <th class="p-4">Produk & Paket</th>
+              <th class="p-4">Qty</th>
+              <th class="p-4">Supplier</th>
+              <th class="p-4">HPP Supplier</th>
+              <th class="p-4">Harga Jual</th>
+              <th class="p-4">Estimasi Profit</th>
+              <th class="p-4">Pembayaran</th>
+              <th class="p-4">Status</th>
+              <th class="p-4">Aksi</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-white/5">
+            ${orderArray.map(o => {
+              const sell = parseFloat(o.sellingPrice);
+              const cost = parseFloat(o.hpp);
+              const fee = parseFloat(o.transactionFee) || 0;
+              const profit = (!isNaN(sell) && !isNaN(cost)) ? (sell - cost - fee) : null;
+              return `
+                <tr class="hover:bg-white/[0.02]">
+                  <td class="p-4 font-mono text-ivory">${o.id}</td>
+                  <td class="p-4">
+                    <div class="font-medium text-ivory">${o.customerName}</div>
+                    <div class="font-mono text-[11px] text-silver">${o.whatsappNumber || '—'}</div>
+                  </td>
+                  <td class="p-4">
+                    <div class="font-medium text-ivory">${o.productName}</div>
+                    <div class="text-[11px] text-silver">${o.packageName}</div>
+                  </td>
+                  <td class="p-4 font-mono">${o.quantity}</td>
+                  <td class="p-4 font-mono text-silver">${o.supplierName}</td>
+                  <td class="p-4 font-mono">${formatIDR(o.hpp)}</td>
+                  <td class="p-4 font-mono">${formatIDR(o.sellingPrice)}</td>
+                  <td class="p-4 font-mono font-semibold text-champagne">${profit !== null ? formatIDR(profit) : 'Isi HPP & Harga'}</td>
+                  <td class="p-4"><span class="px-2 py-0.5 rounded bg-white/5 border border-white/10 text-[11px]">${o.paymentStatus}</span></td>
+                  <td class="p-4"><span class="px-2.5 py-1 rounded-full bg-champagne/15 border border-champagne/40 text-goldlight text-[11px]">${o.orderStatus}</span></td>
+                  <td class="p-4 flex items-center gap-2">
+                    <button onclick="openOrderModal('${o.id}')" class="px-2.5 py-1 rounded bg-white/5 hover:bg-white/10 text-ivory">Edit</button>
+                    <button onclick="deleteOrder('${o.id}')" class="px-2.5 py-1 rounded bg-red-500/10 hover:bg-red-500/20 text-red-300">Hapus</button>
+                  </td>
+                </tr>
+              `;
+            }).join('')}
+          </tbody>
+        </table>
+      `;
+    }
+
+    // 9. ADMIN CRUD ACTIONS & MODALS
+    function closeModal() {
+      document.getElementById('modal-backdrop').classList.add('hidden');
+    }
+
+    function toggleProductActive(id) {
+      state.products = state.products.map(p => p.id === id ? { ...p, active: !p.active } : p);
+      saveState();
+      renderAll();
+      showToast('Status produk diperbarui');
+    }
+
+    function deleteProduct(id) {
+      state.products = state.products.filter(p => p.id !== id);
+      saveState();
+      renderAll();
+      showToast('Produk dihapus');
+    }
+
+    function openProductModal(productId = null) {
+      const existing = state.products.find(p => p.id === productId);
+      const prod = existing || {
+        id: 'prod-' + Date.now(),
+        name: '',
+        category: 'Streaming',
+        shortDesc: '',
+        fullDesc: '',
+        active: true,
+        artworkType: 'netflix',
+        packages: ['Paket Standar'],
+        durations: ['1 Bulan', '3 Bulan', '1 Tahun'],
+        terms: ['Harga dikonfirmasi manual oleh Admin saat pemesanan.']
+      };
+
+      const modal = document.getElementById('modal-content');
+      modal.innerHTML = `
+        <div class="flex items-center justify-between border-b border-white/10 pb-3">
+          <h3 class="text-base font-bold text-ivory">${existing ? 'Edit Produk' : 'Tambah Produk Baru'}</h3>
+          <button onclick="closeModal()" class="text-silver hover:text-white">✕</button>
+        </div>
+        <div class="space-y-3">
+          <div>
+            <label class="block text-silver mb-1">Nama Aplikasi</label>
+            <input id="m-prod-name" type="text" value="${prod.name}" class="w-full px-3 py-2 rounded-lg bg-obsidian border border-white/15 text-ivory"/>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-silver mb-1">Kategori</label>
+              <select id="m-prod-cat" class="w-full px-3 py-2 rounded-lg bg-obsidian border border-white/15 text-ivory">
+                ${['Streaming', 'Edit Video', 'Desain', 'Produktivitas'].map(c => `<option value="${c}" ${prod.category === c ? 'selected' : ''}>${c}</option>`).join('')}
+              </select>
+            </div>
+            <div>
+              <label class="block text-silver mb-1">Visual Logo</label>
+              <select id="m-prod-art" class="w-full px-3 py-2 rounded-lg bg-obsidian border border-white/15 text-ivory">
+                ${['netflix', 'spotify', 'youtube', 'disney', 'prime', 'iqiyi', 'alight', 'capcut', 'canva', 'chatgpt'].map(a => `<option value="${a}" ${prod.artworkType === a ? 'selected' : ''}>Logo ${a.toUpperCase()}</option>`).join('')}
+              </select>
+            </div>
+          </div>
+          <div>
+            <label class="block text-silver mb-1">Deskripsi Singkat</label>
+            <textarea id="m-prod-desc" rows="2" class="w-full px-3 py-2 rounded-lg bg-obsidian border border-white/15 text-ivory">${prod.shortDesc}</textarea>
+          </div>
+          <div>
+            <label class="block text-silver mb-1">Pilihan Paket (Pisahkan dengan koma)</label>
+            <input id="m-prod-pkgs" type="text" value="${prod.packages.join(', ')}" class="w-full px-3 py-2 rounded-lg bg-obsidian border border-white/15 text-ivory"/>
+          </div>
+          <div>
+            <label class="block text-silver mb-1">Pilihan Durasi (Pisahkan dengan koma)</label>
+            <input id="m-prod-durs" type="text" value="${prod.durations.join(', ')}" class="w-full px-3 py-2 rounded-lg bg-obsidian border border-white/15 text-ivory"/>
+          </div>
+        </div>
+        <div class="flex justify-end gap-2 pt-4 border-t border-white/10">
+          <button onclick="closeModal()" class="px-4 py-2 rounded-lg bg-white/5 text-silver">Batal</button>
+          <button onclick="saveProductModal('${prod.id}')" class="px-5 py-2 rounded-lg bg-ivory text-obsidian font-semibold">Simpan Produk</button>
+        </div>
+      `;
+      document.getElementById('modal-backdrop').classList.remove('hidden');
+    }
+
+    function saveProductModal(id) {
+      const name = document.getElementById('m-prod-name').value.trim();
+      if (!name) return;
+      const updated = {
+        id,
+        name,
+        category: document.getElementById('m-prod-cat').value,
+        artworkType: document.getElementById('m-prod-art').value,
+        shortDesc: document.getElementById('m-prod-desc').value.trim(),
+        fullDesc: document.getElementById('m-prod-desc').value.trim(),
+        active: true,
+        packages: document.getElementById('m-prod-pkgs').value.split(',').map(s => s.trim()).filter(Boolean),
+        durations: document.getElementById('m-prod-durs').value.split(',').map(s => s.trim()).filter(Boolean),
+        terms: ['Harga dikonfirmasi manual oleh Admin sesuai stok supplier terbaru.', 'Bergaransi penuh sesuai durasi berlangganan.']
+      };
+      const exists = state.products.some(p => p.id === id);
+      state.products = exists ? state.products.map(p => p.id === id ? updated : p) : [...state.products, updated];
+      saveState();
+      closeModal();
+      renderAll();
+      showToast('Produk berhasil disimpan');
+    }
+
+    function openSupplierModal(supId = null) {
+      const existing = state.suppliers.find(s => s.id === supId);
+      const sup = existing || {
+        id: 'sup-' + Date.now(),
+        name: '',
+        assignedProducts: ['Netflix Premium'],
+        recordedPrice: '',
+        stockStatus: 'Tersedia',
+        warrantyInfo: 'Garansi penuh',
+        refundPolicy: 'Ganti akun baru',
+        lastChecked: new Date().toISOString().split('T')[0],
+        notes: ''
+      };
+
+      const modal = document.getElementById('modal-content');
+      modal.innerHTML = `
+        <div class="flex items-center justify-between border-b border-white/10 pb-3">
+          <h3 class="text-base font-bold text-ivory">${existing ? 'Update Data Supplier' : 'Tambah Supplier Baru'}</h3>
+          <button onclick="closeModal()" class="text-silver hover:text-white">✕</button>
+        </div>
+        <div class="space-y-3">
+          <div>
+            <label class="block text-silver mb-1">Nama / Domain Supplier</label>
+            <input id="m-sup-name" type="text" value="${sup.name}" class="w-full px-3 py-2 rounded-lg bg-obsidian border border-white/15 text-ivory"/>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-silver mb-1">Harga HPP Tercatat (IDR - Opsional)</label>
+              <input id="m-sup-price" type="number" value="${sup.recordedPrice}" placeholder="Kosongkan jika dinamis" class="w-full px-3 py-2 rounded-lg bg-obsidian border border-white/15 text-ivory"/>
+            </div>
+            <div>
+              <label class="block text-silver mb-1">Status Stok</label>
+              <input id="m-sup-stock" type="text" value="${sup.stockStatus}" class="w-full px-3 py-2 rounded-lg bg-obsidian border border-white/15 text-ivory"/>
+            </div>
+          </div>
+          <div>
+            <label class="block text-silver mb-1">Produk yang Dipegang (Pisahkan koma)</label>
+            <input id="m-sup-prods" type="text" value="${sup.assignedProducts.join(', ')}" class="w-full px-3 py-2 rounded-lg bg-obsidian border border-white/15 text-ivory"/>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-silver mb-1">Info Garansi</label>
+              <input id="m-sup-war" type="text" value="${sup.warrantyInfo}" class="w-full px-3 py-2 rounded-lg bg-obsidian border border-white/15 text-ivory"/>
+            </div>
+            <div>
+              <label class="block text-silver mb-1">Tanggal Cek Harga</label>
+              <input id="m-sup-date" type="date" value="${sup.lastChecked}" class="w-full px-3 py-2 rounded-lg bg-obsidian border border-white/15 text-ivory"/>
+            </div>
+          </div>
+          <div>
+            <label class="block text-silver mb-1">Kebijakan Refund</label>
+            <input id="m-sup-ref" type="text" value="${sup.refundPolicy}" class="w-full px-3 py-2 rounded-lg bg-obsidian border border-white/15 text-ivory"/>
+          </div>
+          <div>
+            <label class="block text-silver mb-1">Catatan Supplier</label>
+            <textarea id="m-sup-notes" rows="2" class="w-full px-3 py-2 rounded-lg bg-obsidian border border-white/15 text-ivory">${sup.notes}</textarea>
+          </div>
+        </div>
+        <div class="flex justify-end gap-2 pt-4 border-t border-white/10">
+          <button onclick="closeModal()" class="px-4 py-2 rounded-lg bg-white/5 text-silver">Batal</button>
+          <button onclick="saveSupplierModal('${sup.id}')" class="px-5 py-2 rounded-lg bg-ivory text-obsidian font-semibold">Simpan Supplier</button>
+        </div>
+      `;
+      document.getElementById('modal-backdrop').classList.remove('hidden');
+    }
+
+    function saveSupplierModal(id) {
+      const name = document.getElementById('m-sup-name').value.trim();
+      if (!name) return;
+      const updated = {
+        id,
+        name,
+        recordedPrice: document.getElementById('m-sup-price').value,
+        stockStatus: document.getElementById('m-sup-stock').value.trim(),
+        assignedProducts: document.getElementById('m-sup-prods').value.split(',').map(s => s.trim()).filter(Boolean),
+        warrantyInfo: document.getElementById('m-sup-war').value.trim(),
+        lastChecked: document.getElementById('m-sup-date').value || 'Hari ini',
+        refundPolicy: document.getElementById('m-sup-ref').value.trim(),
+        notes: document.getElementById('m-sup-notes').value.trim()
+      };
+      const exists = state.suppliers.some(s => s.id === id);
+      state.suppliers = exists ? state.suppliers.map(s => s.id === id ? updated : s) : [...state.suppliers, updated];
+      saveState();
+      closeModal();
+      renderAdminDashboard();
+      showToast('Data supplier berhasil disimpan');
+    }
+
+    function deleteSupplier(id) {
+      state.suppliers = state.suppliers.filter(s => s.id !== id);
+      saveState();
+      renderAdminDashboard();
+      showToast('Supplier dihapus');
+    }
+
+    function openOrderModal(orderId = null) {
+      const existing = state.orders.find(o => o.id === orderId);
+      const ord = existing || {
+        id: 'ORD-' + Date.now().toString().slice(-5),
+        customerName: '',
+        whatsappNumber: '',
+        productName: state.products[0]?.name || 'Netflix Premium',
+        packageName: '1 Profil (1 Bulan)',
+        quantity: 1,
+        supplierName: state.suppliers[0]?.name || 'itemku.id',
+        hpp: '',
+        sellingPrice: '',
+        transactionFee: 0,
+        paymentStatus: 'Belum Dibayar',
+        orderStatus: 'Pending'
+      };
+
+      const modal = document.getElementById('modal-content');
+      modal.innerHTML = `
+        <div class="flex items-center justify-between border-b border-white/10 pb-3">
+          <h3 class="text-base font-bold text-ivory">Pesanan & Kalkulator Profit (${ord.id})</h3>
+          <button onclick="closeModal()" class="text-silver hover:text-white">✕</button>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-silver mb-1">Nama Pelanggan</label>
+            <input id="m-ord-cust" type="text" value="${ord.customerName}" class="w-full px-3 py-2 rounded-lg bg-obsidian border border-white/15 text-ivory"/>
+          </div>
+          <div>
+            <label class="block text-silver mb-1">Nomor WA Pelanggan</label>
+            <input id="m-ord-wa" type="text" value="${ord.whatsappNumber}" placeholder="628..." class="w-full px-3 py-2 rounded-lg bg-obsidian border border-white/15 text-ivory"/>
+          </div>
+          <div>
+            <label class="block text-silver mb-1">Produk</label>
+            <select id="m-ord-prod" class="w-full px-3 py-2 rounded-lg bg-obsidian border border-white/15 text-ivory">
+              ${state.products.map(p => `<option value="${p.name}" ${ord.productName === p.name ? 'selected' : ''}>${p.name}</option>`).join('')}
+            </select>
+          </div>
+          <div>
+            <label class="block text-silver mb-1">Paket & Durasi</label>
+            <input id="m-ord-pkg" type="text" value="${ord.packageName}" class="w-full px-3 py-2 rounded-lg bg-obsidian border border-white/15 text-ivory"/>
+          </div>
+          <div>
+            <label class="block text-silver mb-1">Jumlah (Qty)</label>
+            <input id="m-ord-qty" type="number" min="1" value="${ord.quantity}" class="w-full px-3 py-2 rounded-lg bg-obsidian border border-white/15 text-ivory"/>
+          </div>
+          <div>
+            <label class="block text-silver mb-1">Supplier</label>
+            <select id="m-ord-sup" class="w-full px-3 py-2 rounded-lg bg-obsidian border border-white/15 text-ivory">
+              ${state.suppliers.map(s => `<option value="${s.name}" ${ord.supplierName === s.name ? 'selected' : ''}>${s.name}</option>`).join('')}
+            </select>
+          </div>
+          <div>
+            <label class="block text-champagne font-mono mb-1">HPP / Harga Modal Supplier (IDR)</label>
+            <input id="m-ord-hpp" type="number" oninput="updateLiveModalProfit()" value="${ord.hpp}" placeholder="Masukkan modal aktual" class="w-full px-3 py-2 rounded-lg bg-obsidian border border-white/15 text-ivory"/>
+          </div>
+          <div>
+            <label class="block text-champagne font-mono mb-1">Harga Jual ke Pelanggan (IDR)</label>
+            <input id="m-ord-sell" type="number" oninput="updateLiveModalProfit()" value="${ord.sellingPrice}" placeholder="Masukkan harga jual" class="w-full px-3 py-2 rounded-lg bg-obsidian border border-white/15 text-ivory"/>
+          </div>
+          <div>
+            <label class="block text-silver font-mono mb-1">Biaya Transaksi / Admin (IDR)</label>
+            <input id="m-ord-fee" type="number" oninput="updateLiveModalProfit()" value="${ord.transactionFee}" class="w-full px-3 py-2 rounded-lg bg-obsidian border border-white/15 text-ivory"/>
+          </div>
+          <div>
+            <label class="block text-silver mb-1">Status Pembayaran</label>
+            <select id="m-ord-pay" class="w-full px-3 py-2 rounded-lg bg-obsidian border border-white/15 text-ivory">
+              ${['Belum Dibayar', 'Dibayar', 'Refund'].map(st => `<option value="${st}" ${ord.paymentStatus === st ? 'selected' : ''}>${st}</option>`).join('')}
+            </select>
+          </div>
+          <div class="sm:col-span-2">
+            <label class="block text-silver mb-1">Status Pesanan</label>
+            <select id="m-ord-status" class="w-full px-3 py-2 rounded-lg bg-obsidian border border-white/15 text-ivory">
+              ${['Pending', 'Menunggu Pembayaran', 'Dibayar', 'Diproses', 'Selesai', 'Dibatalkan', 'Refund'].map(st => `<option value="${st}" ${ord.orderStatus === st ? 'selected' : ''}>${st}</option>`).join('')}
+            </select>
+          </div>
+        </div>
+        <div class="p-4 rounded-xl bg-obsidian border border-champagne/40 flex items-center justify-between">
+          <div>
+            <div class="text-[10px] font-mono uppercase text-silver">Profit = Harga Jual − HPP − Biaya</div>
+            <div class="text-xs text-ivory mt-0.5">Estimasi Profit Bersih</div>
+          </div>
+          <div id="m-ord-profit-preview" class="text-base font-mono font-bold text-goldlight">Menunggu Input</div>
+        </div>
+        <div class="flex justify-end gap-2 pt-3 border-t border-white/10">
+          <button onclick="closeModal()" class="px-4 py-2 rounded-lg bg-white/5 text-silver">Batal</button>
+          <button onclick="saveOrderModal('${ord.id}')" class="px-5 py-2 rounded-lg bg-ivory text-obsidian font-semibold">Simpan Pesanan</button>
+        </div>
+      `;
+      document.getElementById('modal-backdrop').classList.remove('hidden');
+      updateLiveModalProfit();
+    }
+
+    function updateLiveModalProfit() {
+      const hpp = parseFloat(document.getElementById('m-ord-hpp')?.value);
+      const sell = parseFloat(document.getElementById('m-ord-sell')?.value);
+      const fee = parseFloat(document.getElementById('m-ord-fee')?.value) || 0;
+      const preview = document.getElementById('m-ord-profit-preview');
+      if (!preview) return;
+      if (!isNaN(hpp) && !isNaN(sell)) {
+        preview.textContent = formatIDR(sell - hpp - fee);
+      } else {
+        preview.textContent = 'Menunggu Input';
+      }
+    }
+
+    function saveOrderModal(id) {
+      const updated = {
+        id,
+        customerName: document.getElementById('m-ord-cust').value.trim() || 'Pelanggan WA',
+        whatsappNumber: document.getElementById('m-ord-wa').value.trim(),
+        productName: document.getElementById('m-ord-prod').value,
+        packageName: document.getElementById('m-ord-pkg').value.trim(),
+        quantity: parseInt(document.getElementById('m-ord-qty').value, 10) || 1,
+        supplierName: document.getElementById('m-ord-sup').value,
+        hpp: document.getElementById('m-ord-hpp').value,
+        sellingPrice: document.getElementById('m-ord-sell').value,
+        transactionFee: parseFloat(document.getElementById('m-ord-fee').value) || 0,
+        paymentStatus: document.getElementById('m-ord-pay').value,
+        orderStatus: document.getElementById('m-ord-status').value
+      };
+      const exists = state.orders.some(o => o.id === id);
+      state.orders = exists ? state.orders.map(o => o.id === id ? updated : o) : [updated, ...state.orders];
+      saveState();
+      closeModal();
+      renderAdminDashboard();
+      showToast('Data pesanan & profit berhasil disimpan');
+    }
+
+    function deleteOrder(id) {
+      state.orders = state.orders.filter(o => o.id !== id);
+      saveState();
+      renderAdminDashboard();
+      showToast('Pesanan dihapus');
+    }
+
+    function togglePaymentActive(id) {
+      state.payments = state.payments.map(p => p.id === id ? { ...p, active: !p.active } : p);
+      saveState();
+      renderAll();
+      showToast('Metode pembayaran diperbarui');
+    }
+
+    function saveSettingsForm() {
+      state.settings.storeName = document.getElementById('set-store-name').value.trim() || 'ZENIX';
+      state.settings.tagline = document.getElementById('set-store-tagline').value.trim();
+      state.settings.whatsappNumber = document.getElementById('set-store-wa').value.trim() || '6285128000617';
+      state.settings.supportingCopy = document.getElementById('set-store-support').value.trim();
+      saveState();
+      renderAll();
+      showToast('Pengaturan toko berhasil disimpan!');
+    }
+
+    function resetAllData() {
+      state.settings = JSON.parse(JSON.stringify(DEFAULT_SETTINGS));
+      state.products = JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));
+      state.suppliers = JSON.parse(JSON.stringify(DEFAULT_SUPPLIERS));
+      state.orders = [];
+      state.payments = JSON.parse(JSON.stringify(DEFAULT_PAYMENTS));
+      saveState();
+      renderAll();
+      showToast('Database lokal dikembalikan ke pengaturan awal');
+    }
+
+    // 10. TOAST & GLOBAL RENDER
+    function showToast(msg) {
+      const box = document.getElementById('toast-box');
+      const text = document.getElementById('toast-text');
+      if (!box || !text) return;
+      text.textContent = msg;
+      box.classList.remove('hidden');
+      box.classList.add('flex');
+      setTimeout(() => {
+        box.classList.add('hidden');
+        box.classList.remove('flex');
+      }, 3500);
+    }
+
+    function renderSharedElements() {
+      document.getElementById('header-wa-link').href = `https://wa.me/${state.settings.whatsappNumber}`;
+      document.getElementById('footer-tagline').textContent = state.settings.tagline;
+      document.getElementById('footer-wa-label').textContent = `WA ADMIN: +${state.settings.whatsappNumber}`;
+      document.getElementById('footer-payments-badges').innerHTML = state.payments
+        .filter(p => p.active)
+        .map(p => `<span class="px-2.5 py-1 rounded bg-white/5 border border-white/10 text-[11px] text-ivory">${p.name}</span>`)
+        .join('');
+    }
+
+    function renderAll() {
+      renderSharedElements();
+      renderHomePage();
+      renderCatalogPage();
+      renderProductDetailPage();
+      renderAdminDashboard();
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      renderHeroWavePaths();
+      initOrderFormForProduct(state.selectedProductId);
+      renderAll();
+    });
+  </script>
+</body>
+</html>
