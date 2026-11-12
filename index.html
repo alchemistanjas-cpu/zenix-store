@@ -72,28 +72,9 @@
 <body class="min-h-screen flex flex-col selection:bg-champagne selection:text-obsidian">
 
   <!-- ========================================== -->
-  <!-- TOP SYSTEM BAR & NAVIGATION HEADER         -->
+  <!-- NAVIGATION HEADER                          -->
   <!-- ========================================== -->
   <header class="sticky top-0 z-40 backdrop-blur-xl bg-obsidian/85 border-b border-white/10">
-    <!-- Simulasi Bar Multi-Halaman -->
-    <div class="bg-midnight border-b border-white/5 px-4 py-1.5 text-[11px] text-silver flex flex-wrap items-center justify-between gap-2">
-      <div class="flex items-center gap-2">
-        <span class="inline-block w-2 h-2 rounded-full bg-champagne animate-pulse"></span>
-        <span id="active-route-badge" class="font-mono uppercase tracking-wider text-ivory">index.html</span>
-        <span class="hidden sm:inline text-white/30">|</span>
-        <span class="hidden sm:inline">Zero-Inventory Manual Procurement • Siap Upload ke Vercel</span>
-      </div>
-      <div class="flex items-center gap-2 sm:gap-3 font-mono text-[11px]">
-        <button onclick="navigateTo('index.html')" data-route="index.html" class="route-tab hover:text-white transition text-champagne">index.html</button>
-        <span class="text-white/20">/</span>
-        <button onclick="navigateTo('catalog.html')" data-route="catalog.html" class="route-tab hover:text-white transition">catalog.html</button>
-        <span class="text-white/20">/</span>
-        <button onclick="navigateTo('product.html')" data-route="product.html" class="route-tab hover:text-white transition">product.html</button>
-        <span class="text-white/20">/</span>
-        <button onclick="navigateTo('admin.html')" data-route="admin.html" class="route-tab hover:text-white transition">admin.html</button>
-      </div>
-    </div>
-
     <!-- Main Navbar -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
       <!-- ZENIX Brand Logo -->
@@ -139,10 +120,10 @@
 
     <!-- Mobile Navigation Drawer -->
     <div id="mobile-menu" class="hidden md:hidden bg-obsidian border-b border-white/10 px-4 pt-3 pb-6 space-y-2.5">
-      <button onclick="navigateTo('index.html')" class="block w-full text-left py-2 text-ivory font-medium border-b border-white/5">Beranda (index.html)</button>
-      <button onclick="navigateTo('catalog.html')" class="block w-full text-left py-2 text-ivory font-medium border-b border-white/5">Katalog Produk (catalog.html)</button>
-      <button onclick="navigateTo('product.html')" class="block w-full text-left py-2 text-silver font-medium border-b border-white/5">Detail & Pemesanan (product.html)</button>
-      <button onclick="navigateTo('admin.html')" class="block w-full text-left py-2 text-champagne font-mono text-sm">Terminal Admin (admin.html)</button>
+      <button onclick="navigateTo('index.html')" class="block w-full text-left py-2 text-ivory font-medium border-b border-white/5">Beranda</button>
+      <button onclick="navigateTo('catalog.html')" class="block w-full text-left py-2 text-ivory font-medium border-b border-white/5">Katalog Produk</button>
+      <button onclick="navigateTo('product.html')" class="block w-full text-left py-2 text-silver font-medium border-b border-white/5">Detail & Pemesanan</button>
+      <button onclick="navigateTo('admin.html')" class="block w-full text-left py-2 text-champagne font-mono text-sm">Terminal Admin</button>
     </div>
   </header>
 
@@ -749,10 +730,10 @@
         <div class="space-y-3">
           <h4 class="text-xs font-mono uppercase tracking-widest text-ivory">Navigasi Halaman</h4>
           <ul class="space-y-2 text-xs">
-            <li><button onclick="navigateTo('index.html')" class="hover:text-white transition">Beranda (index.html)</button></li>
-            <li><button onclick="navigateTo('catalog.html')" class="hover:text-white transition">Katalog Produk (catalog.html)</button></li>
-            <li><button onclick="navigateTo('product.html')" class="hover:text-white transition">Detail & Pemesanan (product.html)</button></li>
-            <li><button onclick="navigateTo('admin.html')" class="hover:text-champagne transition">Terminal Admin (admin.html)</button></li>
+            <li><button onclick="navigateTo('index.html')" class="hover:text-white transition">Beranda</button></li>
+            <li><button onclick="navigateTo('catalog.html')" class="hover:text-white transition">Katalog Produk</button></li>
+            <li><button onclick="navigateTo('product.html')" class="hover:text-white transition">Detail & Pemesanan</button></li>
+            <li><button onclick="navigateTo('admin.html')" class="hover:text-champagne transition">Terminal Admin</button></li>
           </ul>
         </div>
 
@@ -1203,11 +1184,13 @@
       document.getElementById('view-product').classList.toggle('hidden', page !== 'product.html');
       document.getElementById('view-admin').classList.toggle('hidden', page !== 'admin.html');
 
-      document.getElementById('active-route-badge').textContent = page;
       document.getElementById('mobile-menu').classList.add('hidden');
 
-      document.querySelectorAll('.route-tab').forEach(btn => {
-        btn.classList.toggle('text-champagne', btn.dataset.route === page);
+      document.querySelectorAll('.nav-link').forEach(btn => {
+        const isCurrent = btn.dataset.nav === page;
+        btn.classList.toggle('text-ivory', isCurrent);
+        btn.classList.toggle('text-champagne', isCurrent);
+        btn.classList.toggle('text-silver', !isCurrent);
       });
 
       renderAll();
